@@ -1,0 +1,43 @@
+{
+  "name": "Ayushman",
+  "headline": "I build digital products and document how they come together.",
+  "overlay": "Products, experiments, notes.",
+  "videos": { "intro": "assets/intro.mp4", "outro": "assets/outro.mp4" },
+  "about": {
+    "heading": "About",
+    "bio": "Placeholder: write a short introduction here. Add only what is true and confirmed.",
+    "photo": "",
+    "facts": [
+      { "k": "Current focus", "v": "Placeholder: what you are working on now" },
+      { "k": "Interests", "v": "Placeholder: your interests" },
+      { "k": "Location", "v": "Placeholder: optional" }
+    ]
+  },
+  "projects": [
+    { "title": "CartGrid", "status": "Planned", "short": "A local commerce and ordering platform.", "detail": "Placeholder: describe the problem, your role and what exists today.", "tech": [], "demo": "", "github": "", "image": "" },
+    { "title": "Theatre Ordering", "status": "Planned", "short": "A cinema food-ordering concept for ordering during the interval.", "detail": "Placeholder: describe the concept and its current stage.", "tech": [], "demo": "", "github": "", "image": "" },
+    { "title": "Liberty", "status": "Planned", "short": "A packaged drinking water brand.", "detail": "Placeholder: describe the brand and its current stage.", "tech": [], "demo": "", "github": "", "image": "" }
+  ],
+  "upcoming": [
+    { "title": "Next idea", "short": "Placeholder: one line about a future project.", "status": "Idea", "timeline": "" }
+  ],
+  "skills": [
+    { "name": "Development", "items": [] },
+    { "name": "Design", "items": [] },
+    { "name": "Creative tools", "items": [] },
+    { "name": "Business & product", "items": [] }
+  ],
+  "contact": {
+    "heading": "Have an idea? Let's build something meaningful.",
+    "text": "Send a note and say what you have in mind.",
+    "email": "ayushmanyou2@gmail.com",
+    "links": [
+      { "label": "LinkedIn", "url": "" },
+      { "label": "Instagram", "url": "" },
+      { "label": "Reddit", "url": "" },
+      { "label": "GitHub", "url": "" }
+    ]
+  },
+  "outro": { "heading": "Thanks for stopping by.", "text": "Placeholder: closing line." },
+  "settings": { "allowReplay": false, "theme": "", "accent": "" }
+}

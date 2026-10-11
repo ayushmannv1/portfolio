@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Portfolio</title>
+<style>
+:root{--bg:#0A0B0F;--bg2:#12141B;--tx:#F4F2ED;--mut:#9A9EA9;--ac:#3D6BFF;--bd:#23262F}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--tx);font:400 15px/1.55 system-ui,'Instrument Sans',sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--bd)}
+header b{font-size:1.05rem;margin-right:auto}
+button,.b{font:500 14px system-ui;color:var(--tx);background:transparent;border:1px solid var(--bd);border-radius:8px;padding:8px 14px;min-height:40px;cursor:pointer}
+button:hover{border-color:var(--ac)}
+button.p{background:var(--ac);border-color:var(--ac);color:#fff}
+#st{width:100%;font-size:.85rem;color:var(--mut)}#st.bad{color:#ff7b7b}#st.ok{color:#7be0a0}
+.wrap{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;max-width:1000px;margin:0 auto;padding:24px 20px 80px}
+#tabs{display:flex;flex-direction:column;gap:6px;position:sticky;top:110px;align-self:start}
+#tabs button{text-align:left}#tabs button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.f{display:grid;gap:4px;margin-bottom:14px}.f>span,h4{font-size:.85rem;color:var(--mut);font-weight:600}
+input,textarea,select{font:inherit;color:var(--tx);background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;width:100%}
+input[type=checkbox]{width:auto;justify-self:start}input[type=color]{height:40px;padding:2px}
+.row{display:flex;gap:8px}
+.lst{margin-bottom:22px}.lst h4{margin-bottom:8px}
+.it{border:1px solid var(--bd);border-radius:10px;margin-bottom:10px;background:var(--bg2)}
+.it>summary{display:flex;gap:6px;align-items:center;padding:8px 12px;cursor:pointer;list-style:none}
+.it>summary span{margin-right:auto;font-weight:600}
+.it>summary button{padding:2px 10px;min-height:32px}
+.it>div{padding:12px 14px 2px;border-top:1px solid var(--bd)}
+details.gh{margin:0 0 20px;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}details.gh summary{cursor:pointer;font-weight:600}
+.hint{color:var(--mut);font-size:.85rem;margin:6px 0 12px}
+@media(max-width:720px){.wrap{grid-template-columns:1fr}#tabs{flex-direction:row;flex-wrap:wrap;position:static}}
+</style>
+</head>
+<body>
+<header><b>Portfolio admin</b>
+<button id="bpv">Preview</button><button id="bdl">Download JSON</button><button id="bim">Import JSON</button><button id="bdis">Discard draft</button><button class="p" id="bpub">Publish to GitHub</button>
+<div id="st">Loading…</div></header>
+<div class="wrap"><nav id="tabs" aria-label="Sections"></nav><main id="pane"></main></div>
+<script>
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":""}};
+const $=s=>document.querySelector(s);
+const h=(t,a={},...k)=>{const x=document.createElement(t);for(const[n,v]of Object.entries(a))x[n]=v;x.append(...k.flat().filter(c=>c!=null));return x};
+const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
+let D,cur='Site',ch=false;
+const st=(m,c='')=>{const s=$('#st');s.textContent=m;s.className=c};
+const dirty=()=>{ch=true;try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}st('Unsaved changes. Draft kept in this browser; publish to make it live.')};
+/* ---- GitHub ---- */
+let G=JSON.parse(localStorage.pf_gh||sessionStorage.pf_gh||'{"repo":"","br":"main","tok":""}');
+const gh=async(m,p,b)=>{const r=await fetch(`https://api.github.com/repos/${G.repo}/contents/${p}${m==='GET'?'?ref='+G.br:''}`,{method:m,headers:{Authorization:'Bearer '+G.tok,Accept:'application/vnd.github+json'},body:b&&JSON.stringify(b)});if(!r.ok&&r.status!==404){let t=r.status;try{t=(await r.json()).message}catch(_){}throw Error(t)}return r};
+const put=async(p,b64,msg)=>{const r=await gh('GET',p),sha=r.ok?(await r.json()).sha:undefined;return (await gh('PUT',p,{message:msg,content:b64,branch:G.br,sha})).json()};
+const b64=t=>btoa(unescape(encodeURIComponent(t)));
+const rd=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)});
+function ghUI(){
+  const i=(k,l,t='text')=>{const x=h('input',{type:t,value:G[k]||'',placeholder:l});x.oninput=()=>G[k]=x.value.trim();return h('label',{className:'f'},h('span',{textContent:l}),x)};
+  const rem=h('input',{type:'checkbox',checked:!!localStorage.pf_gh});
+  const d=h('details',{className:'gh',open:!G.tok},h('summary',{textContent:G.tok?'GitHub connected':'Connect GitHub to publish'}),
+    h('p',{className:'hint',innerHTML:'Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:#8aa6ff">fine-grained token</a> for only this repo with Contents: Read and write. Without it you can still edit and download content.json.'}),
+    i('repo','Repository (owner/name)'),i('br','Branch'),i('tok','Access token','password'),
+    h('label',{className:'f'},h('span',{textContent:'Remember on this device'}),rem),
+    h('button',{className:'p',textContent:'Save and test connection',onclick:async()=>{try{st('Testing…');const r=await fetch('https://api.github.com/repos/'+G.repo,{headers:{Authorization:'Bearer '+G.tok}});if(!r.ok)throw Error('Cannot open repo (check name and token)');localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(rem.checked?localStorage:sessionStorage).pf_gh=JSON.stringify(G);st('Connected to '+G.repo,'ok')}catch(x){st(x.message,'bad')}}}));
+  return d}
+/* ---- uploads ---- */
+function pick(kind,cb){
+  const f=h('input',{type:'file',accept:kind==='vid'?'video/*':'image/*'});
+  f.onchange=async()=>{const x=f.files[0];if(!x)return;try{
+    if(kind==='vid'){if(!G.tok)throw Error('Connect GitHub first to upload videos, or add the file to assets/ on github.com and type its path.');st('Uploading video…');const p='assets/'+Date.now()+'-'+x.name.replace(/[^\w.-]/g,'_');await put(p,(await rd(x)).split(',')[1],'Add '+p);cb(p);return st('Video uploaded. Publish to use it.','ok')}
+    const im=await createImageBitmap(x),s=Math.min(1,1600/Math.max(im.width,im.height)),c=h('canvas',{width:im.width*s|0,height:im.height*s|0});c.getContext('2d').drawImage(im,0,0,c.width,c.height);const u=c.toDataURL('image/jpeg',.85);
+    if(!G.tok){cb(u);return st('Image added to the draft (embedded). Connect GitHub for lighter pages.')}
+    const p='assets/img-'+Date.now()+'.jpg';st('Uploading image…');await put(p,u.split(',')[1],'Add '+p);cb(p);st('Image uploaded. Publish to use it.','ok')
+  }catch(er){st(er.message,'bad')}};f.click()}
+/* ---- form builders ---- */
+function fld(o,k,lab,type='text',opt){
+  let i;const v=o[k]??'';
+  if(type==='area')i=h('textarea',{rows:4,value:v});
+  else if(type==='sel'){i=h('select',{},opt.map(([a,b])=>h('option',{value:a,textContent:b})));i.value=v}
+  else if(type==='chk')i=h('input',{type:'checkbox',checked:!!o[k]});
+  else if(type==='tags')i=h('input',{value:(o[k]||[]).join(', ')});
+  else i=h('input',{value:v});
+  i.addEventListener('input',()=>{o[k]=type==='chk'?i.checked:type==='tags'?i.value.split(',').map(x=>x.trim()).filter(Boolean):i.value;dirty()});
+  const kids=[h('span',{textContent:lab}),i];
+  if(type==='img'||type==='vid')return h('label',{className:'f'},kids[0],h('div',{className:'row'},i,h('button',{type:'button',textContent:'Upload',onclick:e=>{e.preventDefault();pick(type,p=>{i.value=p;o[k]=p;dirty()})}})));
+  return h('label',{className:'f'},...kids)}
+function list(a,lab,defs,blank){
+  const w=h('div',{className:'lst'},h('h4',{textContent:lab}));
+  a.forEach((it,n)=>{
+    const mv=(d)=>e=>{e.preventDefault();const m=n+d;if(m<0||m>=a.length)return;[a[n],a[m]]=[a[m],a[n]];dirty();show()};
+    const body=h('div',{},defs.map(([k,l,t,o,b])=>t==='list'?list(it[k]||(it[k]=[]),l,o,b):fld(it,k,l,t,o)));
+    w.append(h('details',{className:'it',open:a.length<2},h('summary',{},h('span',{textContent:it.title||it.label||it.name||it.k||'Item '+(n+1)}),
+      h('button',{textContent:'Up',onclick:mv(-1)}),h('button',{textContent:'Down',onclick:mv(1)}),
+      h('button',{textContent:'Remove',onclick:e=>{e.preventDefault();if(confirm('Remove this item?')){a.splice(n,1);dirty();show()}}})),body))});
+  w.append(h('button',{textContent:'Add '+lab.toLowerCase().replace(/s$/,''),onclick:()=>{a.push(structuredClone(blank));dirty();show()}}));
+  return w}
+const TH=[['','Noir'],['ivory','Ivory'],['mono','Monochrome']];
+const TABS={
+  Site:()=>[fld(D,'name','Site name'),fld(D,'headline','Hero headline','area'),fld(D,'overlay','Hero subtitle'),fld(D.videos,'intro','Intro video (file path)','vid'),fld(D.videos,'outro','Closing video (file path)','vid'),fld(D.settings,'theme','Default theme','sel',TH),fld(D.settings,'accent','Accent colour (hex, blank = theme default)'),fld(D.settings,'allowReplay','Let visitors replay the sound','chk')],
+  About:()=>[fld(D.about,'heading','Heading'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
+  Projects:()=>[list(D.projects,'Projects',[['title','Title'],['status','Status'],['short','One-line summary'],['detail','Details','area'],['tech','Tech (comma separated)','tags'],['demo','Live demo URL'],['github','GitHub URL'],['image','Cover image','img']],{title:'New project',status:'Planned',short:'',detail:'',tech:[],demo:'',github:'',image:''})],
+  Upcoming:()=>[list(D.upcoming,'Upcoming',[['title','Title'],['short','One-line summary'],['status','Status'],['timeline','Timeline']],{title:'New idea',short:'',status:'Idea',timeline:''})],
+  Skills:()=>[list(D.skills,'Categories',[['name','Category name'],['items','Items','list',[['label','Skill'],['note','Note']],{label:'',note:''}]],{name:'New category',items:[]})],
+  Contact:()=>[fld(D.contact,'heading','Heading'),fld(D.contact,'text','Text','area'),fld(D.contact,'email','Email'),list(D.contact.links,'Links',[['label','Label'],['url','URL']],{label:'',url:''})],
+  Closing:()=>[fld(D.outro,'heading','Heading'),fld(D.outro,'text','Text','area')]
+};
+function show(){
+  $('#tabs').replaceChildren(...Object.keys(TABS).map(t=>h('button',{textContent:t,className:t===cur?'on':'',onclick:()=>{cur=t;show()}})));
+  $('#pane').replaceChildren(...(cur==='Site'?[ghUI()]:[]),...TABS[cur]())}
+/* ---- actions ---- */
+$('#bpub').onclick=async()=>{if(!G.tok){cur='Site';show();return st('Connect GitHub first.','bad')}
+  try{st('Publishing…');await put('content.json',b64(JSON.stringify(D,null,2)+'\n'),'Update content from admin');ch=false;st('Published. The live site updates in about a minute.','ok')}catch(x){st('Publish failed: '+x.message,'bad')}};
+$('#bpv').onclick=()=>{try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}open('index.html?preview=1','_blank')};
+$('#bdl').onclick=()=>{const a=h('a',{href:URL.createObjectURL(new Blob([JSON.stringify(D,null,2)],{type:'application/json'})),download:'content.json'});a.click();st('Downloaded. Replace content.json in your repo with it.','ok')};
+$('#bim').onclick=()=>{const f=h('input',{type:'file',accept:'.json,application/json'});f.onchange=async()=>{try{D=M(JSON.parse(await f.files[0].text()),D0);dirty();show()}catch(_){st('That file is not valid JSON.','bad')}};f.click()};
+$('#bdis').onclick=async()=>{if(!confirm('Discard unpublished changes and reload the published content?'))return;localStorage.removeItem('pf_draft');ch=false;await init()};
+addEventListener('beforeunload',e=>{if(ch){e.preventDefault();e.returnValue=''}});
+async function init(){
+  let d=null;
+  try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)d=await r.json()}catch(_){}
+  D=M(d,D0);let msg='Showing the published content.';
+  try{const x=localStorage.getItem('pf_draft');if(x){D=M(JSON.parse(x),D0);msg='Draft restored from this browser. Use Discard draft to go back to the published version.'}}catch(_){}
+  show();st(msg)}
+init();
+</script>
+</body>
+</html>
