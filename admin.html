@@ -48,8 +48,10 @@ const st=(m,c='')=>{const s=$('#st');s.textContent=m;s.className=c};
 const dirty=()=>{ch=true;try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}st('Unsaved changes. Draft kept in this browser; publish to make it live.')};
 /* ---- GitHub ---- */
 let G=JSON.parse(localStorage.pf_gh||sessionStorage.pf_gh||'{"repo":"","br":"main","tok":""}');
-const gh=async(m,p,b)=>{const r=await fetch(`https://api.github.com/repos/${G.repo}/contents/${p}${m==='GET'?'?ref='+G.br:''}`,{method:m,headers:{Authorization:'Bearer '+G.tok,Accept:'application/vnd.github+json'},body:b&&JSON.stringify(b)});if(!r.ok&&r.status!==404){let t=r.status;try{t=(await r.json()).message}catch(_){}throw Error(t)}return r};
-const put=async(p,b64,msg)=>{const r=await gh('GET',p),sha=r.ok?(await r.json()).sha:undefined;return (await gh('PUT',p,{message:msg,content:b64,branch:G.br,sha})).json()};
+const gh=async(m,p,b)=>{chk();const r=await fetch(`https://api.github.com/repos/${G.repo}/contents/${p}${m==='GET'?'?ref='+G.br:''}`,{method:m,cache:'no-store',headers:{Authorization:'Bearer '+G.tok,Accept:'application/vnd.github+json'},body:b&&JSON.stringify(b)});if(!r.ok&&r.status!==404){let t=r.status;try{t=(await r.json()).message}catch(_){}throw Error(t)}return r};
+const put=async(p,b64,msg,n=0)=>{try{const r=await gh('GET',p),sha=r.ok?(await r.json()).sha:undefined;return await (await gh('PUT',p,{message:msg,content:b64,branch:G.br,sha})).json()}catch(x){if(!n&&/does not match/.test(x.message))return put(p,b64,msg,1);throw x}};
+const chk=()=>{if(!/^[\w.-]+\/[\w.-]+$/.test(G.repo))throw Error('Repository must be username/name, for example ayushmannv1/portfolio')};
+const em=x=>/fetch/i.test(x.message)?'Cannot reach GitHub from this browser (network, ad blocker or antivirus). Open https://api.github.com in a new tab to check, or try another browser.':x.message;
 const b64=t=>btoa(unescape(encodeURIComponent(t)));
 const rd=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)});
 function ghUI(){
@@ -59,7 +61,7 @@ function ghUI(){
     h('p',{className:'hint',innerHTML:'Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:#8aa6ff">fine-grained token</a> for only this repo with Contents: Read and write. Without it you can still edit and download content.json.'}),
     i('repo','Repository (owner/name)'),i('br','Branch'),i('tok','Access token','password'),
     h('label',{className:'f'},h('span',{textContent:'Remember on this device'}),rem),
-    h('button',{className:'p',textContent:'Save and test connection',onclick:async()=>{try{st('Testing…');const r=await fetch('https://api.github.com/repos/'+G.repo,{headers:{Authorization:'Bearer '+G.tok}});if(!r.ok)throw Error('Cannot open repo (check name and token)');localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(rem.checked?localStorage:sessionStorage).pf_gh=JSON.stringify(G);st('Connected to '+G.repo,'ok')}catch(x){st(x.message,'bad')}}}));
+    h('button',{className:'p',textContent:'Save and test connection',onclick:async()=>{try{st('Testing…');chk();const r=await fetch('https://api.github.com/repos/'+G.repo,{headers:{Authorization:'Bearer '+G.tok}});if(!r.ok)throw Error('Cannot open repo (check name and token)');localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(rem.checked?localStorage:sessionStorage).pf_gh=JSON.stringify(G);st('Connected to '+G.repo,'ok')}catch(x){st(em(x),'bad')}}}));
   return d}
 /* ---- uploads ---- */
 function pick(kind,cb){
@@ -69,7 +71,7 @@ function pick(kind,cb){
     const im=await createImageBitmap(x),s=Math.min(1,1600/Math.max(im.width,im.height)),c=h('canvas',{width:im.width*s|0,height:im.height*s|0});c.getContext('2d').drawImage(im,0,0,c.width,c.height);const u=c.toDataURL('image/jpeg',.85);
     if(!G.tok){cb(u);return st('Image added to the draft (embedded). Connect GitHub for lighter pages.')}
     const p='assets/img-'+Date.now()+'.jpg';st('Uploading image…');await put(p,u.split(',')[1],'Add '+p);cb(p);st('Image uploaded. Publish to use it.','ok')
-  }catch(er){st(er.message,'bad')}};f.click()}
+  }catch(er){st(em(er),'bad')}};f.click()}
 /* ---- form builders ---- */
 function fld(o,k,lab,type='text',opt){
   let i;const v=o[k]??'';
@@ -107,7 +109,7 @@ function show(){
   $('#pane').replaceChildren(...(cur==='Site'?[ghUI()]:[]),...TABS[cur]())}
 /* ---- actions ---- */
 $('#bpub').onclick=async()=>{if(!G.tok){cur='Site';show();return st('Connect GitHub first.','bad')}
-  try{st('Publishing…');await put('content.json',b64(JSON.stringify(D,null,2)+'\n'),'Update content from admin');ch=false;st('Published. The live site updates in about a minute.','ok')}catch(x){st('Publish failed: '+x.message,'bad')}};
+  try{st('Publishing…');await put('content.json',b64(JSON.stringify(D,null,2)+'\n'),'Update content from admin');ch=false;st('Published. The live site updates in about a minute.','ok')}catch(x){st('Publish failed: '+em(x),'bad')}};
 $('#bpv').onclick=()=>{try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}open('index.html?preview=1','_blank')};
 $('#bdl').onclick=()=>{const a=h('a',{href:URL.createObjectURL(new Blob([JSON.stringify(D,null,2)],{type:'application/json'})),download:'content.json'});a.click();st('Downloaded. Replace content.json in your repo with it.','ok')};
 $('#bim').onclick=()=>{const f=h('input',{type:'file',accept:'.json,application/json'});f.onchange=async()=>{try{D=M(JSON.parse(await f.files[0].text()),D0);dirty();show()}catch(_){st('That file is not valid JSON.','bad')}};f.click()};
