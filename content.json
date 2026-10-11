@@ -3,7 +3,7 @@
   "headline": "I build digital products and document how they come together.",
   "overlay": "Products, experiments, notes.",
   "videos": {
-    "intro": "",
+    "intro": "assets/intro.mp4",
     "outro": "assets/outro.mp4"
   },
   "about": {
