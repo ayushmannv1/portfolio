@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ayushman — builds digital products</title>
+<meta name="description" content="Portfolio of Ayushman: digital products, experiments and project notes.">
+<meta property="og:title" content="Ayushman — builds digital products">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233D6BFF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0B0F;--bg2:#12141B;--tx:#F4F2ED;--mut:#9A9EA9;--ac:#3D6BFF;--bd:#23262F;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;--pad:clamp(20px,5vw,80px)}
+[data-theme=ivory]{--bg:#F8F6F0;--bg2:#fff;--tx:#171717;--mut:#666;--ac:#2F55E4;--bd:#E3E0D8}
+[data-theme=mono]{--bg:#F0F0F0;--bg2:#fff;--tx:#111;--mut:#595959;--ac:#111;--bd:#D9D9D9}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--tx);font:400 clamp(16px,.9vw + 12px,18px)/1.7 var(--sans);overflow-x:hidden;transition:background .4s,color .4s}
+a{color:var(--ac)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.06;letter-spacing:-.02em}
+h2{font-size:clamp(2.1rem,4vw + .5rem,3.8rem);margin-bottom:1.6rem}
+p{max-width:62ch}
+section{padding:clamp(64px,10vw,130px) var(--pad)}
+header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:6px var(--pad);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
+header b{font:500 1.15rem var(--serif)}
+nav{display:flex;gap:clamp(8px,2.5vw,28px)}
+nav a{color:var(--mut);text-decoration:none;font-size:.95rem;padding:0 4px;min-height:48px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+nav a:hover,nav a.act{color:var(--tx);border-color:var(--ac)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border:1px solid var(--bd);border-radius:99px;background:transparent;color:var(--tx);font:500 .95rem var(--sans);text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{border-color:var(--ac);transform:translateY(-2px)}
+.btn.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+.vid{position:relative;background:#000;overflow:hidden}
+.vid video{display:block;width:100%;height:100%}
+.snd{position:absolute;right:16px;bottom:16px;z-index:3;min-height:44px;padding:0 18px;border:1px solid #fff7;border-radius:99px;background:#000a;color:#fff;font:500 .9rem var(--sans);cursor:pointer;backdrop-filter:blur(6px)}
+.snd:disabled{opacity:.55;cursor:default}
+.vid.err::after{content:"Video unavailable";position:absolute;inset:0;display:grid;place-items:center;color:#fff}
+#intro{height:clamp(480px,88vh,840px)}
+#intro video{object-fit:cover}
+#intro::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#0007,#0000 35%,#000c);pointer-events:none}
+.ov{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:clamp(28px,6vw,72px);color:#fff}
+.ov h1{font-size:clamp(2.6rem,7vw + .4rem,6.4rem);max-width:15ch;animation:rise 1.2s cubic-bezier(.2,.7,.2,1) both}
+.ov p{margin:1rem 0 1.6rem;font-size:1.1rem;opacity:.85;animation:rise 1.2s .2s cubic-bezier(.2,.7,.2,1) both}
+.ov .row{display:flex;gap:12px;flex-wrap:wrap;animation:rise 1.2s .4s cubic-bezier(.2,.7,.2,1) both}
+.ov .btn{color:#fff;border-color:#fff6;background:#0004;backdrop-filter:blur(6px)}
+.ov .btn.pri{background:var(--ac);border-color:var(--ac)}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}}
+.about{display:grid;gap:clamp(32px,6vw,96px);grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}
+.photo{aspect-ratio:4/5;background:var(--bg2);border:1px solid var(--bd);border-radius:999px 999px 14px 14px;display:grid;place-items:center;text-align:center;color:var(--mut);font-size:.9rem;padding:24px;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:2.4rem;border-top:1px solid var(--bd);padding-top:1.6rem}
+.facts h3,.sk h3{font:600 .9rem var(--sans);color:var(--ac);margin-bottom:.3rem;letter-spacing:0}
+.proj{border-top:1px solid var(--bd)}
+.proj:last-child{border-bottom:1px solid var(--bd)}
+.proj summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:center;padding:clamp(20px,3vw,36px) 0;min-height:48px}
+.proj summary::-webkit-details-marker{display:none}
+.proj h3{font-size:clamp(1.6rem,2.6vw + .6rem,2.8rem);transition:transform .35s,color .3s}
+.proj summary:hover h3,.proj[open] h3{transform:translateX(8px);color:var(--ac)}
+.proj summary p{grid-column:1;color:var(--mut)}
+.st{font:500 .8rem var(--sans);color:var(--ac);border:1px solid currentColor;border-radius:99px;padding:3px 12px;white-space:nowrap}
+.pbody{padding:0 0 32px;display:grid;gap:14px;animation:rise .5s both}
+.pbody .tags{display:flex;flex-wrap:wrap;gap:8px;color:var(--mut);font-size:.9rem}
+.pbody .tags span{border:1px solid var(--bd);border-radius:99px;padding:2px 12px}
+.pbody .links{display:flex;gap:12px;flex-wrap:wrap}
+.pbody img{max-width:100%;border-radius:10px}
+.up{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.up article{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:26px;transition:border-color .3s,transform .3s}
+.up article:hover{border-color:var(--ac);transform:translateY(-3px)}
+.up h3{font-size:1.6rem;margin-bottom:.5rem}
+.up .st{display:inline-block;margin-top:14px}
+.sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px}
+.sk li{list-style:none;padding:9px 0;border-top:1px solid var(--bd)}
+.sk small{display:block;color:var(--mut)}
+.empty{color:var(--mut);font-style:italic}
+.contact{background:var(--bg2);border-block:1px solid var(--bd)}
+.contact h2{max-width:16ch}
+.links2{display:flex;flex-wrap:wrap;gap:12px;margin-top:1.8rem}
+.cf{display:grid;gap:12px;max-width:520px;margin-top:2.4rem}
+.cf input,.cf textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;width:100%}
+.cf small{color:var(--mut)}
+.outro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,6vw,96px);align-items:center}
+.outro #outro{height:clamp(420px,65vh,680px);border-radius:16px}
+.outro #outro video{object-fit:contain}
+.outro p{color:var(--mut)}
+footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:28px var(--pad);color:var(--mut);font-size:.9rem;border-top:1px solid var(--bd)}
+footer div{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;min-height:44px}
+#pv{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px var(--pad);background:var(--ac);color:#fff;font-size:.9rem;text-align:center}
+#pv a{color:#fff}
+@media(max-width:760px){.about,.outro{grid-template-columns:1fr}.photo{max-width:320px}header b{display:none}nav{width:100%;justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><b id="hn"></b><nav aria-label="Primary"><a href="#about">About</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></header>
+<main>
+<div class="vid" id="intro" data-k="intro" role="region" aria-label="Intro video">
+  <video muted loop playsinline autoplay preload="metadata" aria-label="Intro video"></video>
+  <div class="ov"><h1 id="ovh"></h1><p id="ovp"></p><div class="row"><a class="btn pri" href="#projects">See projects</a><a class="btn" href="#contact">Get in touch</a></div></div>
+  <button class="snd" type="button"></button>
+</div>
+<section id="about"><div class="about"><div class="photo" id="photo"></div><div><h2 id="ah"></h2><p id="ab"></p><div class="facts" id="facts"></div></div></div></section>
+<section id="projects" style="padding-top:0"><h2>Selected projects</h2><div id="plist"></div></section>
+<section id="upcoming" style="padding-top:0"><h2>Upcoming</h2><div class="up" id="ulist"></div></section>
+<section id="skills" style="padding-top:0"><h2>Skills &amp; tools</h2><div class="sk" id="sk"></div></section>
+<section id="contact" class="contact"><h2 id="ch"></h2><p id="cp"></p><div class="links2" id="links"></div>
+  <form class="cf" id="cf"><input name="n" placeholder="Your name" aria-label="Your name" required><textarea name="m" rows="4" placeholder="What do you have in mind?" aria-label="Message" required></textarea><button class="btn pri" type="submit">Write email</button><small>Opens your email app with the message filled in.</small></form></section>
+<section class="outro" aria-label="Closing video"><div><h2 id="oh"></h2><p id="op"></p></div>
+  <div class="vid" id="outro" data-k="outro"><video muted loop playsinline preload="none" aria-label="Closing video"></video><button class="snd" type="button"></button></div></section>
+</main>
+<footer><span id="fl"></span><div><label>Theme <select id="theme"><option value="">Noir</option><option value="ivory">Ivory</option><option value="mono">Monochrome</option></select></label><button class="btn" type="button" id="top">Back to top</button></div></footer>
+<div id="pv" hidden>Draft preview, not published yet. <a href="admin.html">Back to admin</a></div>
+
+<script>
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":""}};
+const $=id=>document.getElementById(id),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
+async function load(){
+  if(new URLSearchParams(location.search).get('preview')){try{const d=localStorage.getItem('pf_draft');if(d){$('pv').hidden=false;return M(JSON.parse(d),D0)}}catch(_){}}
+  try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)return M(await r.json(),D0)}catch(_){}
+  return D0;
+}
+let S={};
+function render(C){
+  S=C.settings;document.title=C.name+' — builds digital products';
+  $('hn').textContent=C.name;$('ovh').textContent=C.headline;$('ovp').textContent=C.overlay;
+  $('ah').textContent=C.about.heading;$('ab').textContent=C.about.bio;
+  $('photo').innerHTML=C.about.photo?`<img src="${e(C.about.photo)}" alt="Portrait of ${e(C.name)}" loading="lazy">`:'<span>Profile photo goes here</span>';
+  $('facts').innerHTML=C.about.facts.map(f=>`<div><h3>${e(f.k)}</h3><p>${e(f.v)}</p></div>`).join('');
+  $('plist').innerHTML=C.projects.map(p=>`<details class="proj"><summary><h3>${e(p.title)}</h3><span class="st">${e(p.status)}</span><p>${e(p.short)}</p></summary><div class="pbody"><p>${e(p.detail)}</p>${p.image?`<img src="${e(p.image)}" alt="${e(p.title)} cover" loading="lazy">`:''}${(p.tech||[]).length?`<div class="tags">${p.tech.map(t=>`<span>${e(t)}</span>`).join('')}</div>`:''}<div class="links">${p.demo?`<a class="btn pri" href="${e(p.demo)}" target="_blank" rel="noopener">Live demo</a>`:''}${p.github?`<a class="btn" href="${e(p.github)}" target="_blank" rel="noopener">GitHub</a>`:''}</div></div></details>`).join('');
+  $('ulist').innerHTML=C.upcoming.map(u=>`<article><h3>${e(u.title)}</h3><p>${e(u.short)}</p><span class="st">${e(u.status)}</span>${u.timeline?` <small>${e(u.timeline)}</small>`:''}</article>`).join('');
+  $('sk').innerHTML=C.skills.map(g=>`<div><h3>${e(g.name)}</h3>${(g.items||[]).length?`<ul>${g.items.map(s=>`<li>${e(s.label)}${s.note?`<small>${e(s.note)}</small>`:''}</li>`).join('')}</ul>`:'<p class="empty">Nothing added yet.</p>'}</div>`).join('');
+  const K=C.contact;$('ch').textContent=K.heading;$('cp').textContent=K.text;
+  $('links').innerHTML=(K.email?`<a class="btn pri" href="mailto:${e(K.email)}">Email me</a><button class="btn" type="button" id="cp2">Copy email</button>`:'')+K.links.filter(l=>l.url).map(l=>`<a class="btn" href="${e(l.url)}" target="_blank" rel="noopener" aria-label="${e(l.label)} (opens in a new tab)">${e(l.label)}</a>`).join('');
+  $('cf').hidden=!K.email;
+  if($('cp2'))$('cp2').onclick=async b=>{try{await navigator.clipboard.writeText(K.email);b.target.textContent='Copied'}catch(_){prompt('Copy this email:',K.email)}setTimeout(()=>{b.target.textContent='Copy email'},1800)};
+  $('cf').onsubmit=ev=>{ev.preventDefault();const f=ev.target;location.href=`mailto:${K.email}?subject=${encodeURIComponent('Hello from '+f.n.value)}&body=${encodeURIComponent(f.m.value)}`};
+  $('oh').textContent=C.outro.heading;$('op').textContent=C.outro.text;
+  $('fl').textContent='© '+new Date().getFullYear()+' '+C.name;
+  document.querySelector('#intro video').src=C.videos.intro;document.querySelector('#outro video').dataset.src=C.videos.outro;
+  if(S.accent)document.documentElement.style.setProperty('--ac',S.accent);
+  const th=$('theme'),sv=(()=>{try{return localStorage.getItem('th')}catch(_){return null}})();
+  th.value=sv??(S.theme||'');if(th.selectedIndex<0)th.value='';
+  const ap=()=>document.documentElement.dataset.theme=th.value;ap();
+  th.onchange=()=>{ap();try{localStorage.setItem('th',th.value)}catch(_){}};
+  $('top').onclick=()=>scrollTo({top:0});
+  const links=[...document.querySelectorAll('nav a')];
+  new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle('act',a.hash==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'}).observe&&document.querySelectorAll('main section[id]').forEach(s=>new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle('act',a.hash==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'}).observe(s));
+}
+
+/* ---------- Video + audio policy ---------- */
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,A={cur:null,done:{}},V=[];
+function mk(box){
+  const v=box.querySelector('video'),b=box.querySelector('.snd'),k=box.dataset.k;
+  const label=()=>{const on=A.cur===k,used=A.done[k]&&!S.allowReplay;
+    b.textContent=on?'Mute':used?'Sound played':'Play with sound';
+    b.disabled=used&&!on;b.setAttribute('aria-label',on?'Mute '+k+' video':used?'Sound already played':'Play '+k+' video with sound')};
+  const load=()=>{if(v.dataset.src&&!v.getAttribute('src'))v.src=v.dataset.src};
+  box.mute=()=>{v.muted=true;v.loop=true;if(A.cur===k)A.cur=null;label()};
+  b.onclick=()=>{
+    if(A.cur===k)return box.mute();
+    if(A.done[k]&&!S.allowReplay)return;
+    V.forEach(o=>o!==box&&o.mute());
+    load();A.cur=k;A.done[k]=true;
+    v.loop=false;v.muted=false;v.currentTime=0;
+    v.play().catch(()=>box.mute());label()};
+  v.onended=()=>{box.mute();v.currentTime=0;v.play().catch(()=>{})};
+  v.onerror=()=>{box.classList.add('err');b.hidden=true;box.mute()};
+  v.onloadedmetadata=()=>{if(v.audioTracks&&v.audioTracks.length===0)b.hidden=true};
+  new IntersectionObserver(es=>es.forEach(en=>{
+    const r=en.intersectionRatio;
+    if(r<.5&&A.cur===k)box.mute();
+    if(r<.15)v.pause();
+    else if(!RM&&v.paused&&A.cur!==k){load();v.play().catch(()=>{})}
+  }),{threshold:[0,.15,.5]}).observe(box);
+  if(v.dataset.src)new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){load();o.disconnect()}},{rootMargin:'600px'}).observe(box);
+  label();V.push(box);
+}
+load().then(C=>{render(C);document.querySelectorAll('.vid').forEach(mk);if(RM)document.querySelectorAll('.vid video').forEach(v=>v.pause())});
+document.addEventListener('visibilitychange',()=>document.hidden&&V.forEach(b=>b.mute()));
+</script><!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Portfolio</title>
+<style>
+:root{--bg:#0A0B0F;--bg2:#12141B;--tx:#F4F2ED;--mut:#9A9EA9;--ac:#3D6BFF;--bd:#23262F}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--tx);font:400 15px/1.55 system-ui,'Instrument Sans',sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--bd)}
+header b{font-size:1.05rem;margin-right:auto}
+button,.b{font:500 14px system-ui;color:var(--tx);background:transparent;border:1px solid var(--bd);border-radius:8px;padding:8px 14px;min-height:40px;cursor:pointer}
+button:hover{border-color:var(--ac)}
+button.p{background:var(--ac);border-color:var(--ac);color:#fff}
+#st{width:100%;font-size:.85rem;color:var(--mut)}#st.bad{color:#ff7b7b}#st.ok{color:#7be0a0}
+.wrap{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;max-width:1000px;margin:0 auto;padding:24px 20px 80px}
+#tabs{display:flex;flex-direction:column;gap:6px;position:sticky;top:110px;align-self:start}
+#tabs button{text-align:left}#tabs button.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.f{display:grid;gap:4px;margin-bottom:14px}.f>span,h4{font-size:.85rem;color:var(--mut);font-weight:600}
+input,textarea,select{font:inherit;color:var(--tx);background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:9px 12px;width:100%}
+input[type=checkbox]{width:auto;justify-self:start}input[type=color]{height:40px;padding:2px}
+.row{display:flex;gap:8px}
+.lst{margin-bottom:22px}.lst h4{margin-bottom:8px}
+.it{border:1px solid var(--bd);border-radius:10px;margin-bottom:10px;background:var(--bg2)}
+.it>summary{display:flex;gap:6px;align-items:center;padding:8px 12px;cursor:pointer;list-style:none}
+.it>summary span{margin-right:auto;font-weight:600}
+.it>summary button{padding:2px 10px;min-height:32px}
+.it>div{padding:12px 14px 2px;border-top:1px solid var(--bd)}
+details.gh{margin:0 0 20px;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}details.gh summary{cursor:pointer;font-weight:600}
+.hint{color:var(--mut);font-size:.85rem;margin:6px 0 12px}
+@media(max-width:720px){.wrap{grid-template-columns:1fr}#tabs{flex-direction:row;flex-wrap:wrap;position:static}}
+</style>
+</head>
+<body>
+<header><b>Portfolio admin</b>
+<button id="bpv">Preview</button><button id="bdl">Download JSON</button><button id="bim">Import JSON</button><button id="bdis">Discard draft</button><button class="p" id="bpub">Publish to GitHub</button>
+<div id="st">Loading…</div></header>
+<div class="wrap"><nav id="tabs" aria-label="Sections"></nav><main id="pane"></main></div>
+<script>
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":""}};
+const $=s=>document.querySelector(s);
+const h=(t,a={},...k)=>{const x=document.createElement(t);for(const[n,v]of Object.entries(a))x[n]=v;x.append(...k.flat().filter(c=>c!=null));return x};
+const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
+let D,cur='Site',ch=false;
+const st=(m,c='')=>{const s=$('#st');s.textContent=m;s.className=c};
+const dirty=()=>{ch=true;try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}st('Unsaved changes. Draft kept in this browser; publish to make it live.')};
+/* ---- GitHub ---- */
+let G=JSON.parse(localStorage.pf_gh||sessionStorage.pf_gh||'{"repo":"","br":"main","tok":""}');
+const gh=async(m,p,b)=>{const r=await fetch(`https://api.github.com/repos/${G.repo}/contents/${p}${m==='GET'?'?ref='+G.br:''}`,{method:m,headers:{Authorization:'Bearer '+G.tok,Accept:'application/vnd.github+json'},body:b&&JSON.stringify(b)});if(!r.ok&&r.status!==404){let t=r.status;try{t=(await r.json()).message}catch(_){}throw Error(t)}return r};
+const put=async(p,b64,msg)=>{const r=await gh('GET',p),sha=r.ok?(await r.json()).sha:undefined;return (await gh('PUT',p,{message:msg,content:b64,branch:G.br,sha})).json()};
+const b64=t=>btoa(unescape(encodeURIComponent(t)));
+const rd=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)});
+function ghUI(){
+  const i=(k,l,t='text')=>{const x=h('input',{type:t,value:G[k]||'',placeholder:l});x.oninput=()=>G[k]=x.value.trim();return h('label',{className:'f'},h('span',{textContent:l}),x)};
+  const rem=h('input',{type:'checkbox',checked:!!localStorage.pf_gh});
+  const d=h('details',{className:'gh',open:!G.tok},h('summary',{textContent:G.tok?'GitHub connected':'Connect GitHub to publish'}),
+    h('p',{className:'hint',innerHTML:'Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:#8aa6ff">fine-grained token</a> for only this repo with Contents: Read and write. Without it you can still edit and download content.json.'}),
+    i('repo','Repository (owner/name)'),i('br','Branch'),i('tok','Access token','password'),
+    h('label',{className:'f'},h('span',{textContent:'Remember on this device'}),rem),
+    h('button',{className:'p',textContent:'Save and test connection',onclick:async()=>{try{st('Testing…');const r=await fetch('https://api.github.com/repos/'+G.repo,{headers:{Authorization:'Bearer '+G.tok}});if(!r.ok)throw Error('Cannot open repo (check name and token)');localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(rem.checked?localStorage:sessionStorage).pf_gh=JSON.stringify(G);st('Connected to '+G.repo,'ok')}catch(x){st(x.message,'bad')}}}));
+  return d}
+/* ---- uploads ---- */
+function pick(kind,cb){
+  const f=h('input',{type:'file',accept:kind==='vid'?'video/*':'image/*'});
+  f.onchange=async()=>{const x=f.files[0];if(!x)return;try{
+    if(kind==='vid'){if(!G.tok)throw Error('Connect GitHub first to upload videos, or add the file to assets/ on github.com and type its path.');st('Uploading video…');const p='assets/'+Date.now()+'-'+x.name.replace(/[^\w.-]/g,'_');await put(p,(await rd(x)).split(',')[1],'Add '+p);cb(p);return st('Video uploaded. Publish to use it.','ok')}
+    const im=await createImageBitmap(x),s=Math.min(1,1600/Math.max(im.width,im.height)),c=h('canvas',{width:im.width*s|0,height:im.height*s|0});c.getContext('2d').drawImage(im,0,0,c.width,c.height);const u=c.toDataURL('image/jpeg',.85);
+    if(!G.tok){cb(u);return st('Image added to the draft (embedded). Connect GitHub for lighter pages.')}
+    const p='assets/img-'+Date.now()+'.jpg';st('Uploading image…');await put(p,u.split(',')[1],'Add '+p);cb(p);st('Image uploaded. Publish to use it.','ok')
+  }catch(er){st(er.message,'bad')}};f.click()}
+/* ---- form builders ---- */
+function fld(o,k,lab,type='text',opt){
+  let i;const v=o[k]??'';
+  if(type==='area')i=h('textarea',{rows:4,value:v});
+  else if(type==='sel'){i=h('select',{},opt.map(([a,b])=>h('option',{value:a,textContent:b})));i.value=v}
+  else if(type==='chk')i=h('input',{type:'checkbox',checked:!!o[k]});
+  else if(type==='tags')i=h('input',{value:(o[k]||[]).join(', ')});
+  else i=h('input',{value:v});
+  i.addEventListener('input',()=>{o[k]=type==='chk'?i.checked:type==='tags'?i.value.split(',').map(x=>x.trim()).filter(Boolean):i.value;dirty()});
+  const kids=[h('span',{textContent:lab}),i];
+  if(type==='img'||type==='vid')return h('label',{className:'f'},kids[0],h('div',{className:'row'},i,h('button',{type:'button',textContent:'Upload',onclick:e=>{e.preventDefault();pick(type,p=>{i.value=p;o[k]=p;dirty()})}})));
+  return h('label',{className:'f'},...kids)}
+function list(a,lab,defs,blank){
+  const w=h('div',{className:'lst'},h('h4',{textContent:lab}));
+  a.forEach((it,n)=>{
+    const mv=(d)=>e=>{e.preventDefault();const m=n+d;if(m<0||m>=a.length)return;[a[n],a[m]]=[a[m],a[n]];dirty();show()};
+    const body=h('div',{},defs.map(([k,l,t,o,b])=>t==='list'?list(it[k]||(it[k]=[]),l,o,b):fld(it,k,l,t,o)));
+    w.append(h('details',{className:'it',open:a.length<2},h('summary',{},h('span',{textContent:it.title||it.label||it.name||it.k||'Item '+(n+1)}),
+      h('button',{textContent:'Up',onclick:mv(-1)}),h('button',{textContent:'Down',onclick:mv(1)}),
+      h('button',{textContent:'Remove',onclick:e=>{e.preventDefault();if(confirm('Remove this item?')){a.splice(n,1);dirty();show()}}})),body))});
+  w.append(h('button',{textContent:'Add '+lab.toLowerCase().replace(/s$/,''),onclick:()=>{a.push(structuredClone(blank));dirty();show()}}));
+  return w}
+const TH=[['','Noir'],['ivory','Ivory'],['mono','Monochrome']];
+const TABS={
+  Site:()=>[fld(D,'name','Site name'),fld(D,'headline','Hero headline','area'),fld(D,'overlay','Hero subtitle'),fld(D.videos,'intro','Intro video (file path)','vid'),fld(D.videos,'outro','Closing video (file path)','vid'),fld(D.settings,'theme','Default theme','sel',TH),fld(D.settings,'accent','Accent colour (hex, blank = theme default)'),fld(D.settings,'allowReplay','Let visitors replay the sound','chk')],
+  About:()=>[fld(D.about,'heading','Heading'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
+  Projects:()=>[list(D.projects,'Projects',[['title','Title'],['status','Status'],['short','One-line summary'],['detail','Details','area'],['tech','Tech (comma separated)','tags'],['demo','Live demo URL'],['github','GitHub URL'],['image','Cover image','img']],{title:'New project',status:'Planned',short:'',detail:'',tech:[],demo:'',github:'',image:''})],
+  Upcoming:()=>[list(D.upcoming,'Upcoming',[['title','Title'],['short','One-line summary'],['status','Status'],['timeline','Timeline']],{title:'New idea',short:'',status:'Idea',timeline:''})],
+  Skills:()=>[list(D.skills,'Categories',[['name','Category name'],['items','Items','list',[['label','Skill'],['note','Note']],{label:'',note:''}]],{name:'New category',items:[]})],
+  Contact:()=>[fld(D.contact,'heading','Heading'),fld(D.contact,'text','Text','area'),fld(D.contact,'email','Email'),list(D.contact.links,'Links',[['label','Label'],['url','URL']],{label:'',url:''})],
+  Closing:()=>[fld(D.outro,'heading','Heading'),fld(D.outro,'text','Text','area')]
+};
+function show(){
+  $('#tabs').replaceChildren(...Object.keys(TABS).map(t=>h('button',{textContent:t,className:t===cur?'on':'',onclick:()=>{cur=t;show()}})));
+  $('#pane').replaceChildren(...(cur==='Site'?[ghUI()]:[]),...TABS[cur]())}
+/* ---- actions ---- */
+$('#bpub').onclick=async()=>{if(!G.tok){cur='Site';show();return st('Connect GitHub first.','bad')}
+  try{st('Publishing…');await put('content.json',b64(JSON.stringify(D,null,2)+'\n'),'Update content from admin');ch=false;st('Published. The live site updates in about a minute.','ok')}catch(x){st('Publish failed: '+x.message,'bad')}};
+$('#bpv').onclick=()=>{try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}open('index.html?preview=1','_blank')};
+$('#bdl').onclick=()=>{const a=h('a',{href:URL.createObjectURL(new Blob([JSON.stringify(D,null,2)],{type:'application/json'})),download:'content.json'});a.click();st('Downloaded. Replace content.json in your repo with it.','ok')};
+$('#bim').onclick=()=>{const f=h('input',{type:'file',accept:'.json,application/json'});f.onchange=async()=>{try{D=M(JSON.parse(await f.files[0].text()),D0);dirty();show()}catch(_){st('That file is not valid JSON.','bad')}};f.click()};
+$('#bdis').onclick=async()=>{if(!confirm('Discard unpublished changes and reload the published content?'))return;localStorage.removeItem('pf_draft');ch=false;await init()};
+addEventListener('beforeunload',e=>{if(ch){e.preventDefault();e.returnValue=''}});
+async function init(){
+  let d=null;
+  try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)d=await r.json()}catch(_){}
+  D=M(d,D0);let msg='Showing the published content.';
+  try{const x=localStorage.getItem('pf_draft');if(x){D=M(JSON.parse(x),D0);msg='Draft restored from this browser. Use Discard draft to go back to the published version.'}}catch(_){}
+  show();st(msg)}
+init();
+</script>
+</body>
+</html>
+{
+  "name": "Ayushman",
+  "headline": "I build digital products and document how they come together.",
+  "overlay": "Products, experiments, notes.",
+  "videos": { "intro": "assets/intro.mp4", "outro": "assets/outro.mp4" },
+  "about": {
+    "heading": "About",
+    "bio": "Placeholder: write a short introduction here. Add only what is true and confirmed.",
+    "photo": "",
+    "facts": [
+      { "k": "Current focus", "v": "Placeholder: what you are working on now" },
+      { "k": "Interests", "v": "Placeholder: your interests" },
+      { "k": "Location", "v": "Placeholder: optional" }
+    ]
+  },
+  "projects": [
+    { "title": "CartGrid", "status": "Planned", "short": "A local commerce and ordering platform.", "detail": "Placeholder: describe the problem, your role and what exists today.", "tech": [], "demo": "", "github": "", "image": "" },
+    { "title": "Theatre Ordering", "status": "Planned", "short": "A cinema food-ordering concept for ordering during the interval.", "detail": "Placeholder: describe the concept and its current stage.", "tech": [], "demo": "", "github": "", "image": "" },
+    { "title": "Liberty", "status": "Planned", "short": "A packaged drinking water brand.", "detail": "Placeholder: describe the brand and its current stage.", "tech": [], "demo": "", "github": "", "image": "" }
+  ],
+  "upcoming": [
+    { "title": "Next idea", "short": "Placeholder: one line about a future project.", "status": "Idea", "timeline": "" }
+  ],
+  "skills": [
+    { "name": "Development", "items": [] },
+    { "name": "Design", "items": [] },
+    { "name": "Creative tools", "items": [] },
+    { "name": "Business & product", "items": [] }
+  ],
+  "contact": {
+    "heading": "Have an idea? Let's build something meaningful.",
+    "text": "Send a note and say what you have in mind.",
+    "email": "ayushmanyou2@gmail.com",
+    "links": [
+      { "label": "LinkedIn", "url": "" },
+      { "label": "Instagram", "url": "" },
+      { "label": "Reddit", "url": "" },
+      { "label": "GitHub", "url": "" }
+    ]
+  },
+  "outro": { "heading": "Thanks for stopping by.", "text": "Placeholder: closing line." },
+  "settings": { "allowReplay": false, "theme": "", "accent": "" }
+}
+
+</body>
+</html>
