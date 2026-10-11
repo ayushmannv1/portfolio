@@ -93,6 +93,7 @@ footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px soli
 .sk li .r{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .pf{font:500 .78rem var(--sans);border:1px solid var(--ac);border-radius:99px;padding:2px 12px;text-decoration:none;white-space:nowrap}
 .pf:hover{background:var(--ac);color:#fff}
+.adm{opacity:.55}.adm:hover{opacity:1}.adm .al{display:none}
 .mb{display:none;background:none;border:0;color:var(--tx);width:48px;height:48px;align-items:center;justify-content:center;cursor:pointer;margin-right:-10px}
 .mb .i-x,.mb[aria-expanded=true] .i-m{display:none}
 .mb[aria-expanded=true] .i-x{display:block}
@@ -119,12 +120,14 @@ section{padding-block:56px}
 .facts div{display:grid;grid-template-columns:105px 1fr;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--bd)}
 .facts h3{margin:0;font-size:.8rem}
 .facts p{font-size:.95rem}
+nav a.adm{justify-content:space-between;opacity:1}
+.adm .al{display:inline}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<header><b id="hn"></b><button class="mb" id="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="i-m" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-x" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button><nav id="nav" aria-label="Primary"><a href="#about">About</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></header>
+<header><b id="hn"></b><button class="mb" id="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="i-m" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-x" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button><nav id="nav" aria-label="Primary"><a href="#about">About</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a class="adm" href="admin.html" aria-label="Admin sign in" title="Admin"><span class="al">Admin</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></nav></header>
 <main>
 <div class="vid" id="intro" data-k="intro" role="region" aria-label="Intro video">
   <div class="vw"><video muted loop playsinline autoplay preload="metadata" aria-label="Intro video"></video><button class="snd" type="button"></button></div>
