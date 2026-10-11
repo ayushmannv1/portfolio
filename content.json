@@ -1,85 +1,109 @@
 {
   "name": "Ayushman",
-  "headline": "I build digital products and document how they come together.",
-  "overlay": "Products, experiments, notes.",
+  "headline": "Build. Grow. Serve.",
+  "overlay": "Just building things that shouldn't exist yet",
   "videos": {
     "intro": "WhatsApp Video 2026-10-10 at 12.47.26 PM.mp4",
-    "outro": "assets/1791714942560-1000086305.mp4"
+    "outro": "assets/1791717601578-WhatsApp_Video_2026-10-11_at_4.49.06_PM.mp4"
   },
   "about": {
     "heading": "About",
-    "bio": "Placeholder: write a short introduction here. Add only what is true and confirmed.",
+    "bio": "Hey, I'm Ayushman — a young builder, creative thinker, and curious mind exploring the intersection of technology, business, and design. I turn ideas into projects, experiment with new tools, and learn by building things in the real world. This is where I document the process — the experiments, the challenges, and everything I'm working towards.",
     "photo": "",
     "facts": [
       {
         "k": "Current focus",
-        "v": "Placeholder: what you are working on now"
+        "v": "Building Project 650 "
       },
       {
         "k": "Interests",
-        "v": "Placeholder: your interests"
+        "v": "Technology, Business & Creative Experiments"
+      },
+      {
+        "k": "Creative Side ",
+        "v": "Video Editing"
+      },
+      {
+        "k": "Building Philosophy",
+        "v": "Start Small. Think Big. Execute."
       },
       {
         "k": "Location",
-        "v": "Placeholder: optional"
+        "v": "Bihar , India "
       }
     ]
   },
   "projects": [
     {
       "title": "CartGrid",
-      "status": "Planned",
-      "short": "A local commerce and ordering platform.",
-      "detail": "Placeholder: describe the problem, your role and what exists today.",
-      "tech": [],
-      "demo": "",
+      "status": "Completed",
+      "short": "Bringing neighbourhood shops online through a simpler, QR-powered ordering experience",
+      "detail": "CartGrid is a local-commerce project exploring how neighbourhood shops can make their products accessible online. The concept focuses on QR-based discovery, simpler ordering, and a more convenient experience for both shopkeepers and customers.\n\nThe goal is to make local shopping more accessible through practical digital tools. The project is being developed and refined through experimentation, product design, and real-world problem-solving.",
+      "tech": [
+        "React",
+        "JavaScript",
+        "Supabae",
+        "Vercel"
+      ],
+      "demo": "https://cartgrid.vercel.app/smart-mart",
       "github": "",
-      "image": ""
+      "image": "assets/img-1791719070917.jpg"
     },
     {
-      "title": "Theatre Ordering",
-      "status": "Planned",
-      "short": "A cinema food-ordering concept for ordering during the interval.",
-      "detail": "Placeholder: describe the concept and its current stage.",
-      "tech": [],
-      "demo": "",
+      "title": "Wannadateme",
+      "status": "Complete",
+      "short": "A playful app experiment exploring fun and unexpected digital interactions.",
+      "detail": "Prank App is a creative experiment focused on making digital interactions more playful and entertaining. The project explores how simple app experiences can surprise users and turn ordinary moments into something fun.\n\nThis project reflects my interest in experimenting with app ideas, user experiences, and creative product development.",
+      "tech": [
+        "React",
+        "JavaScript",
+        "Supabae",
+        "Vercel"
+      ],
+      "demo": "https://wannadateme-cyan.vercel.app/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAU4VpZleHRuA2FlbQIxMQBwZG9mAnNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp-E1PiM9Yb4DOVL97w-rzX5zG_DelmXz6Lec7LvGcBAYE_UEcjwh-mN956tl_aem_nX3H5IXxFDoi0k5bA8Fl4A",
       "github": "",
-      "image": ""
-    },
-    {
-      "title": "Liberty",
-      "status": "Planned",
-      "short": "A packaged drinking water brand.",
-      "detail": "Placeholder: describe the brand and its current stage.",
-      "tech": [],
-      "demo": "",
-      "github": "",
-      "image": ""
+      "image": "assets/img-1791719363367.jpg"
     }
   ],
   "upcoming": [
     {
-      "title": "Next idea",
-      "short": "Placeholder: one line about a future project.",
-      "status": "Idea",
-      "timeline": ""
+      "title": "Project 650 ",
+      "short": "Reimagining Cinema Food Ordering With Seat Based QR Technology",
+      "status": "Idea ",
+      "timeline": "Expolration Phase"
     }
   ],
   "skills": [
     {
-      "name": "Vibe coder",
+      "name": "Development & AI",
       "items": [
         {
-          "label": "",
-          "note": ""
+          "label": "AI-Assisted Development",
+          "note": "Building and refining digital products with AI-assisted coding tools.",
+          "url": ""
+        },
+        {
+          "label": "Web App development ",
+          "url": "https://cartgrid.vercel.app/smart-mart",
+          "note": "Turning ideas into functional web experiences"
+        },
+        {
+          "label": "Vibe Coding ",
+          "url": "",
+          "note": "Rapidly prototyping ideas with AI-powered development workflows"
+        },
+        {
+          "label": "UI/UX Design ",
+          "url": "",
+          "note": "Exploring clean interfaces, user flows, and visual experiences"
         }
       ]
     },
     {
-      "name": "Motin graphic",
+      "name": "Motin graphic & Editing ",
       "items": [
         {
-          "label": "",
+          "label": "Video Edting & Motion Graphic ",
           "note": ""
         }
       ]
@@ -94,7 +118,7 @@
       ]
     },
     {
-      "name": "Business & product",
+      "name": "New category",
       "items": []
     }
   ],
@@ -112,18 +136,14 @@
         "url": "https://www.instagram.com/ayushmann.v1?obrf=YXA5cTc2Zmo5NXR0"
       },
       {
-        "label": "Reddit",
-        "url": "https://www.reddit.com/u/ayushmann_v1/s/aTPtRNGFUO"
-      },
-      {
         "label": "GitHub",
         "url": "https://github.com/ayushmannv1"
       }
     ]
   },
   "outro": {
-    "heading": "Thanks for stopping by.",
-    "text": "Placeholder: closing line."
+    "heading": "This Is Just Beginning",
+    "text": "Not everything is built yet. Not every idea has a name. But the journey is already in motion.\n\nSee you in the next build."
   },
   "settings": {
     "allowReplay": true,
