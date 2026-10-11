@@ -8,20 +8,20 @@
   },
   "about": {
     "heading": "About",
-    "bio": "Hii I am Ayushman 18 yrs old and I study in class 12th. I live at teir 3 city ",
+    "bio": "Hii I am Ayushman 18 yrs old and I study in class 12th.",
     "photo": "",
     "facts": [
       {
         "k": "Current focus",
-        "v": "Placeholder: what you are working on now"
+        "v": "Project 650 "
       },
       {
         "k": "Interests",
-        "v": "Placeholder: your interests"
+        "v": "Travelling and Built something Unqiue"
       },
       {
         "k": "Location",
-        "v": "Placeholder: optional"
+        "v": "Tier 3 city "
       }
     ]
   },
@@ -37,7 +37,7 @@
       "image": ""
     },
     {
-      "title": "Theatre Ordering",
+      "title": "Aalsi ",
       "status": "Planned",
       "short": "A cinema food-ordering concept for ordering during the interval.",
       "detail": "Placeholder: describe the concept and its current stage.",
@@ -49,8 +49,8 @@
     {
       "title": "Liberty",
       "status": "Planned",
-      "short": "A packaged drinking water brand.",
-      "detail": "Placeholder: describe the brand and its current stage.",
+      "short": "Boring business ",
+      "detail": "right now in only idea stage not excuting stage ",
       "tech": [],
       "demo": "",
       "github": "",
