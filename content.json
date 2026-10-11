@@ -67,16 +67,31 @@
   ],
   "skills": [
     {
-      "name": "Development",
-      "items": []
+      "name": "Vibe coder",
+      "items": [
+        {
+          "label": "",
+          "note": ""
+        }
+      ]
     },
     {
-      "name": "Design",
-      "items": []
+      "name": "Motin graphic",
+      "items": [
+        {
+          "label": "",
+          "note": ""
+        }
+      ]
     },
     {
-      "name": "Creative tools",
-      "items": []
+      "name": "Data Analyst",
+      "items": [
+        {
+          "label": "",
+          "note": ""
+        }
+      ]
     },
     {
       "name": "Business & product",
