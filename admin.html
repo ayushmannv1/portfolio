@@ -48,13 +48,15 @@ details.gh{margin:0 0 20px;border:1px solid var(--bd);border-radius:10px;padding
 <div class="wrap"><nav id="tabs" aria-label="Sections"></nav><main id="pane"></main></div>
 </div>
 <script>
-const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true},"eyebrow":""};
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true},"eyebrow":"","badge":{"name":"Project 650","status":"In Progress"}};
 const $=s=>document.querySelector(s);
 const h=(t,a={},...k)=>{const x=document.createElement(t);for(const[n,v]of Object.entries(a))x[n]=v;x.append(...k.flat().filter(c=>c!=null));return x};
-const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
-let D,cur='Site',ch=false;
+const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos','badge'])o[k]={...b[k],...d[k]};return o};
+let D,cur='Site',ch=false,PUB='';
+const hs=t=>{let h=0;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;return h+':'+t.length};
+const saveDraft=()=>{try{localStorage.setItem('pf_draft',JSON.stringify(D));localStorage.pf_base=PUB}catch(_){}};
 const st=(m,c='')=>{const s=$('#st');s.textContent=m;s.className=c};
-const dirty=()=>{ch=true;try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}st('Unsaved changes. Draft kept in this browser; publish to make it live.')};
+const dirty=()=>{ch=true;saveDraft();st('Unsaved changes. Draft kept in this browser; publish to make it live.')};
 /* ---- GitHub ---- */
 let G=JSON.parse(localStorage.pf_gh||sessionStorage.pf_gh||'{"repo":"ayushmannv1/portfolio","br":"main","tok":""}');
 let KEEP=!sessionStorage.pf_gh;const saveG=()=>{localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(KEEP?localStorage:sessionStorage).pf_gh=JSON.stringify(G)};
@@ -107,7 +109,7 @@ function list(a,lab,defs,blank){
 const TH=[['','Noir'],['ivory','Ivory'],['mono','Monochrome']];
 const TABS={
   Site:()=>[fld(D,'name','Site name'),fld(D,'headline','Hero headline','area'),fld(D,'overlay','Hero subtitle'),fld(D,'eyebrow','Small line above the headline (optional)'),fld(D.videos,'intro','Intro video (file path)','vid'),fld(D.videos,'outro','Closing video (file path)','vid'),fld(D.settings,'theme','Default theme','sel',TH),fld(D.settings,'accent','Accent colour (hex, blank = theme default)'),fld(D.settings,'allowReplay','Let visitors replay the sound','chk'),fld(D.settings,'grain','Film grain over the intro video','chk'),fld(D.settings,'fx','Subtle motion (scroll reveal, card tilt)','chk')],
-  About:()=>[fld(D.about,'heading','Heading'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
+  About:()=>[fld(D.about,'heading','Heading'),fld(D.badge,'name','Badge beside photo: project name'),fld(D.badge,'status','Badge beside photo: status'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
   Projects:()=>[list(D.projects,'Projects',[['title','Title'],['status','Status'],['short','One-line summary'],['detail','Details','area'],['tech','Tech (comma separated)','tags'],['demo','Live demo URL'],['github','GitHub URL'],['image','Cover image','img']],{title:'New project',status:'Planned',short:'',detail:'',tech:[],demo:'',github:'',image:''})],
   Upcoming:()=>[list(D.upcoming,'Upcoming',[['title','Title'],['short','One-line summary'],['status','Status'],['timeline','Timeline']],{title:'New idea',short:'',status:'Idea',timeline:''})],
   Skills:()=>[list(D.skills,'Categories',[['name','Category name'],['items','Items','list',[['label','Skill'],['url','Proof link (optional)'],['note','Note']],{label:'',url:'',note:''}]],{name:'New category',items:[]})],
@@ -119,17 +121,19 @@ function show(){
   $('#pane').replaceChildren(...(cur==='Site'?[ghUI()]:[]),...TABS[cur]())}
 /* ---- actions ---- */
 $('#bpub').onclick=async()=>{if(!G.tok){cur='Site';show();return st('Connect GitHub first.','bad')}
-  try{st('Publishing…');await put('content.json',b64(JSON.stringify(D,null,2)+'\n'),'Update content from admin');ch=false;st('Published. The live site updates in about a minute.','ok')}catch(x){st('Publish failed: '+em(x),'bad')}};
-$('#bpv').onclick=()=>{try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}open('index.html?preview=1','_blank')};
+  try{st('Publishing…');const tx=JSON.stringify(D,null,2)+'\n';await put('content.json',b64(tx),'Update content from admin');PUB=hs(tx);saveDraft();ch=false;st('Published. The live site updates in about a minute.','ok')}catch(x){st('Publish failed: '+em(x),'bad')}};
+$('#bpv').onclick=()=>{saveDraft();open('index.html?preview=1','_blank')};
 $('#bdl').onclick=()=>{const a=h('a',{href:URL.createObjectURL(new Blob([JSON.stringify(D,null,2)],{type:'application/json'})),download:'content.json'});a.click();st('Downloaded. Replace content.json in your repo with it.','ok')};
 $('#bim').onclick=()=>{const f=h('input',{type:'file',accept:'.json,application/json'});f.onchange=async()=>{try{D=M(JSON.parse(await f.files[0].text()),D0);dirty();show()}catch(_){st('That file is not valid JSON.','bad')}};f.click()};
 $('#bdis').onclick=async()=>{if(!confirm('Discard unpublished changes and reload the published content?'))return;localStorage.removeItem('pf_draft');ch=false;await init()};
 addEventListener('beforeunload',e=>{if(ch){e.preventDefault();e.returnValue=''}});
 async function init(){
-  let d=null;
-  try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)d=await r.json()}catch(_){}
-  D=M(d,D0);let msg='Showing the published content.';
-  try{const x=localStorage.getItem('pf_draft');if(x){D=M(JSON.parse(x),D0);msg='Draft restored from this browser. Use Discard draft to go back to the published version.'}}catch(_){}
+  let txt=null;
+  try{if(G.tok&&/^[\w.-]+\/[\w.-]+$/.test(G.repo)){const r=await fetch(`https://api.github.com/repos/${G.repo}/contents/content.json?ref=${G.br}`,{cache:'no-store',headers:{Authorization:'Bearer '+G.tok,Accept:'application/vnd.github.raw+json'}});if(r.ok)txt=await r.text()}}catch(_){}
+  if(txt==null)try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)txt=await r.text()}catch(_){}
+  let d=null;try{d=JSON.parse(txt)}catch(_){}
+  PUB=txt?hs(txt):'';D=M(d,D0);let msg='Showing the latest published content.';
+  try{const x=localStorage.getItem('pf_draft');if(x&&localStorage.pf_base===PUB){D=M(JSON.parse(x),D0);msg='Your unpublished draft was restored. Use Discard draft to go back to the published version.'}else localStorage.removeItem('pf_draft')}catch(_){}
   show();st(msg)}
 /* ---- sign-in gate (hides the admin screen; publishing still needs the GitHub token) ---- */
 const AH='97d2939b312c4b27bf7a0d4d7bb80ebe5c46727be8d46f343ccd34dc29ba2c95';
