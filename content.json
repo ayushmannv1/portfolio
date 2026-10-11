@@ -1,60 +1,68 @@
 {
   "name": "Ayushman",
   "headline": "Build. Grow. Serve.",
-  "overlay": "Products, experiments, notes.",
+  "overlay": "Just building things that shouldn't exist yet",
   "videos": {
     "intro": "WhatsApp Video 2026-10-10 at 12.47.26 PM.mp4",
     "outro": "assets/1791717601578-WhatsApp_Video_2026-10-11_at_4.49.06_PM.mp4"
   },
   "about": {
     "heading": "About",
-    "bio": "Hii I am Ayushman 18 yrs old and I study in class 12th.",
+    "bio": "Hey, I'm Ayushman — a young builder, creative thinker, and curious mind exploring the intersection of technology, business, and design. I turn ideas into projects, experiment with new tools, and learn by building things in the real world. This is where I document the process — the experiments, the challenges, and everything I'm working towards.",
     "photo": "",
     "facts": [
       {
         "k": "Current focus",
-        "v": "Project 650 "
+        "v": "Building Project 650 "
       },
       {
         "k": "Interests",
-        "v": "Travelling and Built something Unqiue"
+        "v": "Technology, Business & Creative Experiments"
       },
       {
         "k": "Location",
-        "v": "Tier 3 city "
+        "v": "Bihar , India "
+      },
+      {
+        "k": "Creative Side ",
+        "v": "Video Editing"
+      },
+      {
+        "k": "Building Philosophy",
+        "v": "Start Small. Think Big. Execute."
       }
     ]
   },
   "projects": [
     {
       "title": "CartGrid",
-      "status": "Planned",
-      "short": "A local commerce and ordering platform.",
-      "detail": "Placeholder: describe the problem, your role and what exists today.",
-      "tech": [],
-      "demo": "",
+      "status": "Completed",
+      "short": "Bringing neighbourhood shops online through a simpler, QR-powered ordering experience",
+      "detail": "CartGrid is a local-commerce project exploring how neighbourhood shops can make their products accessible online. The concept focuses on QR-based discovery, simpler ordering, and a more convenient experience for both shopkeepers and customers.\n\nThe goal is to make local shopping more accessible through practical digital tools. The project is being developed and refined through experimentation, product design, and real-world problem-solving.",
+      "tech": [
+        "React",
+        "JavaScript",
+        "Supabae",
+        "Vercel"
+      ],
+      "demo": "https://cartgrid.vercel.app/smart-mart",
       "github": "",
-      "image": ""
+      "image": "assets/img-1791719070917.jpg"
     },
     {
-      "title": "Aalsi ",
-      "status": "Planned",
-      "short": "A cinema food-ordering concept for ordering during the interval.",
-      "detail": "Placeholder: describe the concept and its current stage.",
-      "tech": [],
-      "demo": "",
+      "title": "Wannadateme",
+      "status": "Complete",
+      "short": "A playful app experiment exploring fun and unexpected digital interactions.",
+      "detail": "Prank App is a creative experiment focused on making digital interactions more playful and entertaining. The project explores how simple app experiences can surprise users and turn ordinary moments into something fun.\n\nThis project reflects my interest in experimenting with app ideas, user experiences, and creative product development.",
+      "tech": [
+        "React",
+        "JavaScript",
+        "Supabae",
+        "Vercel"
+      ],
+      "demo": "https://wannadateme-cyan.vercel.app/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAU4VpZleHRuA2FlbQIxMQBwZG9mAnNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp-E1PiM9Yb4DOVL97w-rzX5zG_DelmXz6Lec7LvGcBAYE_UEcjwh-mN956tl_aem_nX3H5IXxFDoi0k5bA8Fl4A",
       "github": "",
-      "image": ""
-    },
-    {
-      "title": "Liberty",
-      "status": "Planned",
-      "short": "Boring business ",
-      "detail": "right now in only idea stage not excuting stage ",
-      "tech": [],
-      "demo": "",
-      "github": "",
-      "image": ""
+      "image": "assets/img-1791719363367.jpg"
     }
   ],
   "upcoming": [
