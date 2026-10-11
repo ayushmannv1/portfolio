@@ -112,7 +112,7 @@
   },
   "settings": {
     "allowReplay": false,
-    "theme": "ivory",
+    "theme": "",
     "accent": ""
   }
 }
