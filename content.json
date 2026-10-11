@@ -20,16 +20,16 @@
         "v": "Technology, Business & Creative Experiments"
       },
       {
-        "k": "Location",
-        "v": "Bihar , India "
-      },
-      {
         "k": "Creative Side ",
         "v": "Video Editing"
       },
       {
         "k": "Building Philosophy",
         "v": "Start Small. Think Big. Execute."
+      },
+      {
+        "k": "Location",
+        "v": "Bihar , India "
       }
     ]
   },
@@ -67,27 +67,43 @@
   ],
   "upcoming": [
     {
-      "title": "Next idea",
-      "short": "Figuring Out",
-      "status": "Idea",
-      "timeline": ""
+      "title": "Project 650 ",
+      "short": "Reimagining Cinema Food Ordering With Seat Based QR Technology",
+      "status": "Idea ",
+      "timeline": "Expolration Phase"
     }
   ],
   "skills": [
     {
-      "name": "Vibe coder",
+      "name": "Development & AI",
       "items": [
         {
-          "label": "",
-          "note": ""
+          "label": "AI-Assisted Development",
+          "note": "Building and refining digital products with AI-assisted coding tools.",
+          "url": ""
+        },
+        {
+          "label": "Web App development ",
+          "url": "https://cartgrid.vercel.app/smart-mart",
+          "note": "Turning ideas into functional web experiences"
+        },
+        {
+          "label": "Vibe Coding ",
+          "url": "",
+          "note": "Rapidly prototyping ideas with AI-powered development workflows"
+        },
+        {
+          "label": "UI/UX Design ",
+          "url": "",
+          "note": "Exploring clean interfaces, user flows, and visual experiences"
         }
       ]
     },
     {
-      "name": "Motin graphic",
+      "name": "Motin graphic & Editing ",
       "items": [
         {
-          "label": "",
+          "label": "Video Edting & Motion Graphic ",
           "note": ""
         }
       ]
@@ -102,7 +118,7 @@
       ]
     },
     {
-      "name": "Business & product",
+      "name": "New category",
       "items": []
     }
   ],
@@ -126,8 +142,8 @@
     ]
   },
   "outro": {
-    "heading": "Thanks for stopping by.",
-    "text": "Placeholder: closing line."
+    "heading": "This Is Just Beginning",
+    "text": "Not everything is built yet. Not every idea has a name. But the journey is already in motion.\n\nSee you in the next build."
   },
   "settings": {
     "allowReplay": true,
