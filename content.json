@@ -4,11 +4,11 @@
   "overlay": "Products, experiments, notes.",
   "videos": {
     "intro": "WhatsApp Video 2026-10-10 at 12.47.26 PM.mp4",
-    "outro": "assets/1791713613958-1000086298.mp4"
+    "outro": "assets/outro.mp4"
   },
   "about": {
     "heading": "About",
-    "bio": "Placeholder: write a short introduction here. Add only what is true and confirmed.",
+    "bio": "Build. Grow. Serve.",
     "photo": "",
     "facts": [
       {
@@ -60,7 +60,7 @@
   "upcoming": [
     {
       "title": "Next idea",
-      "short": "Placeholder: one line about a future project.",
+      "short": "Figuring Out",
       "status": "Idea",
       "timeline": ""
     }
@@ -110,10 +110,6 @@
       {
         "label": "Instagram",
         "url": "https://www.instagram.com/ayushmann.v1?obrf=YXA5cTc2Zmo5NXR0"
-      },
-      {
-        "label": "Reddit",
-        "url": "https://www.reddit.com/u/ayushmann_v1/s/aTPtRNGFUO"
       },
       {
         "label": "GitHub",
