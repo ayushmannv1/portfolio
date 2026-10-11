@@ -68,7 +68,7 @@
   "upcoming": [
     {
       "title": "Project 650 ",
-      "short": "Reimagining Cinema Food Ordering With Seat Based QR Technology",
+      "short": "Project 650  A personal challenge to build something of my own, figure things out along the way, and see how far I can go before the next chapter begins.  Balancing a few big goals, making my own money, chasing new experiences, and documenting the process as it unfolds. No perfect timeline, no guaranteed outcome — just me, the work, and everything that happens in between.  Somewhere between building, learning, and figuring life out.",
       "status": "Idea ",
       "timeline": "Expolration Phase"
     }
@@ -165,5 +165,9 @@
     "grain": true,
     "fx": true
   },
-  "eyebrow": "Just Out Here Doing My Own Thing"
+  "eyebrow": "Just Out Here Doing My Own Thing",
+  "badge": {
+    "name": "Project 650",
+    "status": "In Progress"
+  }
 }
