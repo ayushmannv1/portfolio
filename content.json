@@ -3,7 +3,7 @@
   "headline": "I build digital products and document how they come together.",
   "overlay": "Products, experiments, notes.",
   "videos": {
-    "intro": "WhatsApp Video 2026-10-10 at 12.47.26 PM.mp4",
+    "intro": "",
     "outro": "assets/outro.mp4"
   },
   "about": {
@@ -111,7 +111,7 @@
     "text": "Placeholder: closing line."
   },
   "settings": {
-    "allowReplay": false,
+    "allowReplay": true,
     "theme": "",
     "accent": ""
   }
