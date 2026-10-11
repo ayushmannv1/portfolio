@@ -100,7 +100,7 @@ const TABS={
   About:()=>[fld(D.about,'heading','Heading'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
   Projects:()=>[list(D.projects,'Projects',[['title','Title'],['status','Status'],['short','One-line summary'],['detail','Details','area'],['tech','Tech (comma separated)','tags'],['demo','Live demo URL'],['github','GitHub URL'],['image','Cover image','img']],{title:'New project',status:'Planned',short:'',detail:'',tech:[],demo:'',github:'',image:''})],
   Upcoming:()=>[list(D.upcoming,'Upcoming',[['title','Title'],['short','One-line summary'],['status','Status'],['timeline','Timeline']],{title:'New idea',short:'',status:'Idea',timeline:''})],
-  Skills:()=>[list(D.skills,'Categories',[['name','Category name'],['items','Items','list',[['label','Skill'],['note','Note']],{label:'',note:''}]],{name:'New category',items:[]})],
+  Skills:()=>[list(D.skills,'Categories',[['name','Category name'],['items','Items','list',[['label','Skill'],['url','Proof link (optional)'],['note','Note']],{label:'',url:'',note:''}]],{name:'New category',items:[]})],
   Contact:()=>[fld(D.contact,'heading','Heading'),fld(D.contact,'text','Text','area'),fld(D.contact,'email','Email'),list(D.contact.links,'Links',[['label','Label'],['url','URL']],{label:'',url:''})],
   Closing:()=>[fld(D.outro,'heading','Heading'),fld(D.outro,'text','Text','area')]
 };
