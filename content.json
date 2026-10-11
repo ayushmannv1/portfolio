@@ -1,27 +1,27 @@
 {
   "name": "Ayushman",
-  "headline": "I build digital products and document how they come together.",
+  "headline": "Build. Grow. Serve.",
   "overlay": "Products, experiments, notes.",
   "videos": {
     "intro": "WhatsApp Video 2026-10-10 at 12.47.26 PM.mp4",
-    "outro": "assets/1791714942560-1000086305.mp4"
+    "outro": "assets/outro.mp4"
   },
   "about": {
     "heading": "About",
-    "bio": "Placeholder: write a short introduction here. Add only what is true and confirmed.",
+    "bio": "Hii I am Ayushman 18 yrs old and I study in class 12th.",
     "photo": "",
     "facts": [
       {
         "k": "Current focus",
-        "v": "Placeholder: what you are working on now"
+        "v": "Project 650 "
       },
       {
         "k": "Interests",
-        "v": "Placeholder: your interests"
+        "v": "Travelling and Built something Unqiue"
       },
       {
         "k": "Location",
-        "v": "Placeholder: optional"
+        "v": "Tier 3 city "
       }
     ]
   },
@@ -37,7 +37,7 @@
       "image": ""
     },
     {
-      "title": "Theatre Ordering",
+      "title": "Aalsi ",
       "status": "Planned",
       "short": "A cinema food-ordering concept for ordering during the interval.",
       "detail": "Placeholder: describe the concept and its current stage.",
@@ -49,8 +49,8 @@
     {
       "title": "Liberty",
       "status": "Planned",
-      "short": "A packaged drinking water brand.",
-      "detail": "Placeholder: describe the brand and its current stage.",
+      "short": "Boring business ",
+      "detail": "right now in only idea stage not excuting stage ",
       "tech": [],
       "demo": "",
       "github": "",
@@ -60,7 +60,7 @@
   "upcoming": [
     {
       "title": "Next idea",
-      "short": "Placeholder: one line about a future project.",
+      "short": "Figuring Out",
       "status": "Idea",
       "timeline": ""
     }
@@ -110,10 +110,6 @@
       {
         "label": "Instagram",
         "url": "https://www.instagram.com/ayushmann.v1?obrf=YXA5cTc2Zmo5NXR0"
-      },
-      {
-        "label": "Reddit",
-        "url": "https://www.reddit.com/u/ayushmann_v1/s/aTPtRNGFUO"
       },
       {
         "label": "GitHub",
