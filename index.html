@@ -32,7 +32,7 @@ nav a:hover,nav a.act{color:var(--tx);border-color:var(--ac)}
 .btn.pri{background:var(--ac);border-color:var(--ac);color:#fff}
 .vid{position:relative;background:#000;overflow:hidden}
 .vid video{display:block;width:100%;height:100%}
-.snd{position:absolute;right:16px;bottom:16px;z-index:3;min-height:44px;padding:0 18px;border:1px solid #fff7;border-radius:99px;background:#000a;color:#fff;font:500 .9rem var(--sans);cursor:pointer;backdrop-filter:blur(6px)}
+.snd{position:absolute;right:14px;bottom:14px;z-index:3;width:44px;height:44px;padding:0;display:grid;place-items:center;border:1px solid #fff7;border-radius:50%;background:#000a;color:#fff;cursor:pointer;backdrop-filter:blur(6px)}
 .snd:disabled{opacity:.55;cursor:default}
 .vid.err::after{content:"Video unavailable";position:absolute;inset:0;display:grid;place-items:center;color:#fff}
 #intro{height:clamp(480px,88vh,840px)}
@@ -79,7 +79,7 @@ nav a:hover,nav a.act{color:var(--tx);border-color:var(--ac)}
 .cf input,.cf textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;width:100%}
 .cf small{color:var(--mut)}
 .outro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,6vw,96px);align-items:center}
-.outro #outro{height:clamp(420px,65vh,680px);border-radius:16px}
+.outro #outro{border-radius:16px}
 .outro #outro video{object-fit:contain}
 .outro p{color:var(--mut)}
 footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:28px var(--pad);color:var(--mut);font-size:.9rem;border-top:1px solid var(--bd)}
@@ -87,17 +87,48 @@ footer div{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;min-height:44px}
 #pv{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px var(--pad);background:var(--ac);color:#fff;font-size:.9rem;text-align:center}
 #pv a{color:#fff}
-@media(max-width:760px){.about,.outro{grid-template-columns:1fr}.photo{max-width:320px}header b{display:none}nav{width:100%;justify-content:space-between}}
+.vw{position:relative;width:100%;height:100%}
+#intro .vw{position:absolute;inset:0}
+#outro .vw{height:clamp(420px,65vh,680px)}
+.sk li .r{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pf{font:500 .78rem var(--sans);border:1px solid var(--ac);border-radius:99px;padding:2px 12px;text-decoration:none;white-space:nowrap}
+.pf:hover{background:var(--ac);color:#fff}
+.mb{display:none;background:none;border:0;color:var(--tx);width:48px;height:48px;align-items:center;justify-content:center;cursor:pointer;margin-right:-10px}
+.mb .i-x,.mb[aria-expanded=true] .i-m{display:none}
+.mb[aria-expanded=true] .i-x{display:block}
+@media(max-width:760px){
+.mb{display:inline-flex}
+header{padding-block:4px}
+nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:8px var(--pad) 16px;background:var(--bg);border-bottom:1px solid var(--bd)}
+header.open nav{display:flex}
+nav a{min-height:52px;font-size:1.05rem;border-bottom:1px solid var(--bd)}
+.about,.outro{grid-template-columns:1fr}
+.photo{max-width:230px;margin:0 auto}
+h2{font-size:clamp(1.8rem,8vw,2.4rem)}
+section{padding-block:56px}
+#intro{height:auto}
+#intro .vw{position:relative;height:auto;aspect-ratio:var(--ar,16/9);max-height:78vh}
+#intro video{object-fit:contain}
+#intro::before{display:none}
+.ov{position:static;color:var(--tx);padding:22px var(--pad) 28px}
+.ov h1{font-size:clamp(2rem,9vw,2.8rem)}
+.ov .btn{color:var(--tx);border-color:var(--bd);background:transparent;backdrop-filter:none}
+.ov .btn.pri{color:#fff;border-color:var(--ac);background:var(--ac)}
+#outro .vw{height:auto;aspect-ratio:var(--ar,16/9);max-height:80vh}
+.facts{grid-template-columns:1fr;gap:0;margin-top:1.6rem}
+.facts div{display:grid;grid-template-columns:105px 1fr;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--bd)}
+.facts h3{margin:0;font-size:.8rem}
+.facts p{font-size:.95rem}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<header><b id="hn"></b><nav aria-label="Primary"><a href="#about">About</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></header>
+<header><b id="hn"></b><button class="mb" id="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="i-m" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-x" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button><nav id="nav" aria-label="Primary"><a href="#about">About</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav></header>
 <main>
 <div class="vid" id="intro" data-k="intro" role="region" aria-label="Intro video">
-  <video muted loop playsinline autoplay preload="metadata" aria-label="Intro video"></video>
+  <div class="vw"><video muted loop playsinline autoplay preload="metadata" aria-label="Intro video"></video><button class="snd" type="button"></button></div>
   <div class="ov"><h1 id="ovh"></h1><p id="ovp"></p><div class="row"><a class="btn pri" href="#projects">See projects</a><a class="btn" href="#contact">Get in touch</a></div></div>
-  <button class="snd" type="button"></button>
 </div>
 <section id="about"><div class="about"><div class="photo" id="photo"></div><div><h2 id="ah"></h2><p id="ab"></p><div class="facts" id="facts"></div></div></div></section>
 <section id="projects" style="padding-top:0"><h2>Selected projects</h2><div id="plist"></div></section>
@@ -106,7 +137,7 @@ footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px soli
 <section id="contact" class="contact"><h2 id="ch"></h2><p id="cp"></p><div class="links2" id="links"></div>
   <form class="cf" id="cf"><input name="n" placeholder="Your name" aria-label="Your name" required><textarea name="m" rows="4" placeholder="What do you have in mind?" aria-label="Message" required></textarea><button class="btn pri" type="submit">Write email</button><small>Opens your email app with the message filled in.</small></form></section>
 <section class="outro" aria-label="Closing video"><div><h2 id="oh"></h2><p id="op"></p></div>
-  <div class="vid" id="outro" data-k="outro"><video muted loop playsinline preload="none" aria-label="Closing video"></video><button class="snd" type="button"></button></div></section>
+  <div class="vid" id="outro" data-k="outro"><div class="vw"><video muted loop playsinline preload="none" aria-label="Closing video"></video><button class="snd" type="button"></button></div></div></section>
 </main>
 <footer><span id="fl"></span><div><label>Theme <select id="theme"><option value="">Noir</option><option value="ivory">Ivory</option><option value="mono">Monochrome</option></select></label><button class="btn" type="button" id="top">Back to top</button></div></footer>
 <div id="pv" hidden>Draft preview, not published yet. <a href="admin.html">Back to admin</a></div>
@@ -115,6 +146,7 @@ footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px soli
 const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":""}};
 const $=id=>document.getElementById(id),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
+const U=u=>/^https?:\/\//i.test(u)?u:/^[\w-]+(\.[\w-]+)+(\/|$)/.test(u)?'https://'+u:'';
 async function load(){
   if(new URLSearchParams(location.search).get('preview')){try{const d=localStorage.getItem('pf_draft');if(d){$('pv').hidden=false;return M(JSON.parse(d),D0)}}catch(_){}}
   try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)return M(await r.json(),D0)}catch(_){}
@@ -127,11 +159,11 @@ function render(C){
   $('ah').textContent=C.about.heading;$('ab').textContent=C.about.bio;
   $('photo').innerHTML=C.about.photo?`<img src="${e(C.about.photo)}" alt="Portrait of ${e(C.name)}" loading="lazy">`:'<span>Profile photo goes here</span>';
   $('facts').innerHTML=C.about.facts.map(f=>`<div><h3>${e(f.k)}</h3><p>${e(f.v)}</p></div>`).join('');
-  $('plist').innerHTML=C.projects.map(p=>`<details class="proj"><summary><h3>${e(p.title)}</h3><span class="st">${e(p.status)}</span><p>${e(p.short)}</p></summary><div class="pbody"><p>${e(p.detail)}</p>${p.image?`<img src="${e(p.image)}" alt="${e(p.title)} cover" loading="lazy">`:''}${(p.tech||[]).length?`<div class="tags">${p.tech.map(t=>`<span>${e(t)}</span>`).join('')}</div>`:''}<div class="links">${p.demo?`<a class="btn pri" href="${e(p.demo)}" target="_blank" rel="noopener">Live demo</a>`:''}${p.github?`<a class="btn" href="${e(p.github)}" target="_blank" rel="noopener">GitHub</a>`:''}</div></div></details>`).join('');
+  $('plist').innerHTML=C.projects.map(p=>`<details class="proj"><summary><h3>${e(p.title)}</h3><span class="st">${e(p.status)}</span><p>${e(p.short)}</p></summary><div class="pbody"><p>${e(p.detail)}</p>${p.image?`<img src="${e(p.image)}" alt="${e(p.title)} cover" loading="lazy">`:''}${(p.tech||[]).length?`<div class="tags">${p.tech.map(t=>`<span>${e(t)}</span>`).join('')}</div>`:''}<div class="links">${p.demo?`<a class="btn pri" href="${e(U(p.demo))}" target="_blank" rel="noopener">Live demo</a>`:''}${p.github?`<a class="btn" href="${e(U(p.github))}" target="_blank" rel="noopener">GitHub</a>`:''}</div></div></details>`).join('');
   $('ulist').innerHTML=C.upcoming.map(u=>`<article><h3>${e(u.title)}</h3><p>${e(u.short)}</p><span class="st">${e(u.status)}</span>${u.timeline?` <small>${e(u.timeline)}</small>`:''}</article>`).join('');
-  $('sk').innerHTML=C.skills.map(g=>`<div><h3>${e(g.name)}</h3>${(g.items||[]).length?`<ul>${g.items.map(s=>`<li>${e(s.label)}${s.note?`<small>${e(s.note)}</small>`:''}</li>`).join('')}</ul>`:'<p class="empty">Nothing added yet.</p>'}</div>`).join('');
+  $('sk').innerHTML=C.skills.map(g=>`<div><h3>${e(g.name)}</h3>${(g.items||[]).length?`<ul>${g.items.map(s=>`<li><div class="r"><span>${e(s.label)}</span>${U(s.url||'')?`<a class="pf" href="${e(U(s.url))}" target="_blank" rel="noopener" aria-label="Proof for ${e(s.label)} (opens in a new tab)">Proof</a>`:''}</div>${s.note?`<small>${e(s.note)}</small>`:''}</li>`).join('')}</ul>`:'<p class="empty">Nothing added yet.</p>'}</div>`).join('');
   const K=C.contact;$('ch').textContent=K.heading;$('cp').textContent=K.text;
-  $('links').innerHTML=(K.email?`<a class="btn pri" href="mailto:${e(K.email)}">Email me</a><button class="btn" type="button" id="cp2">Copy email</button>`:'')+K.links.filter(l=>l.url).map(l=>`<a class="btn" href="${e(l.url)}" target="_blank" rel="noopener" aria-label="${e(l.label)} (opens in a new tab)">${e(l.label)}</a>`).join('');
+  $('links').innerHTML=(K.email?`<a class="btn pri" href="mailto:${e(K.email)}">Email me</a><button class="btn" type="button" id="cp2">Copy email</button>`:'')+K.links.filter(l=>l.url).map(l=>`<a class="btn" href="${e(U(l.url))}" target="_blank" rel="noopener" aria-label="${e(l.label)} (opens in a new tab)">${e(l.label)}</a>`).join('');
   $('cf').hidden=!K.email;
   if($('cp2'))$('cp2').onclick=async b=>{try{await navigator.clipboard.writeText(K.email);b.target.textContent='Copied'}catch(_){prompt('Copy this email:',K.email)}setTimeout(()=>{b.target.textContent='Copy email'},1800)};
   $('cf').onsubmit=ev=>{ev.preventDefault();const f=ev.target;location.href=`mailto:${K.email}?subject=${encodeURIComponent('Hello from '+f.n.value)}&body=${encodeURIComponent(f.m.value)}`};
@@ -144,16 +176,22 @@ function render(C){
   const ap=()=>document.documentElement.dataset.theme=th.value;ap();
   th.onchange=()=>{ap();try{localStorage.setItem('th',th.value)}catch(_){}};
   $('top').onclick=()=>scrollTo({top:0});
+  const hd=document.querySelector('header'),mb=$('mb'),tg=o=>{hd.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
+  mb.onclick=()=>tg(!hd.classList.contains('open'));
+  document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>tg(false)));
+  addEventListener('keydown',x=>x.key==='Escape'&&tg(false));
+  document.addEventListener('click',x=>{if(!hd.contains(x.target))tg(false)});
   const links=[...document.querySelectorAll('nav a')];
   new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle('act',a.hash==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'}).observe&&document.querySelectorAll('main section[id]').forEach(s=>new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)links.forEach(a=>a.classList.toggle('act',a.hash==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'}).observe(s));
 }
 
 /* ---------- Video + audio policy ---------- */
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,A={cur:null,done:{}},V=[];
+const IC={off:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m16 9 5 6M21 9l-5 6"/></svg>',on:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>'};
 function mk(box){
   const v=box.querySelector('video'),b=box.querySelector('.snd'),k=box.dataset.k;
   const label=()=>{const on=A.cur===k,used=A.done[k]&&!S.allowReplay;
-    b.textContent=on?'Mute':used?'Sound played':'Play with sound';
+    b.innerHTML=on?IC.on:IC.off;b.title=on?'Mute':used?'Sound already played':'Play with sound';
     b.disabled=used&&!on;b.setAttribute('aria-label',on?'Mute '+k+' video':used?'Sound already played':'Play '+k+' video with sound')};
   const load=()=>{if(v.dataset.src&&!v.getAttribute('src'))v.src=v.dataset.src};
   box.mute=()=>{v.muted=true;v.loop=true;if(A.cur===k)A.cur=null;label()};
@@ -166,7 +204,7 @@ function mk(box){
     v.play().catch(()=>box.mute());label()};
   v.onended=()=>{box.mute();v.currentTime=0;v.play().catch(()=>{})};
   v.onerror=()=>{box.classList.add('err');b.hidden=true;box.mute()};
-  v.onloadedmetadata=()=>{if(v.audioTracks&&v.audioTracks.length===0)b.hidden=true};
+  v.onloadedmetadata=()=>{if(v.videoWidth)box.style.setProperty('--ar',v.videoWidth+'/'+v.videoHeight);if(v.audioTracks&&v.audioTracks.length===0)b.hidden=true};
   new IntersectionObserver(es=>es.forEach(en=>{
     const r=en.intersectionRatio;
     if(r<.5&&A.cur===k)box.mute();
