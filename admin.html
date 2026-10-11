@@ -8,6 +8,8 @@
 <style>
 :root{--bg:#0A0B0F;--bg2:#12141B;--tx:#F4F2ED;--mut:#9A9EA9;--ac:#3D6BFF;--bd:#23262F}
 *{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+.lg{max-width:380px;margin:12vh auto;padding:28px;border:1px solid var(--bd);border-radius:14px;background:var(--bg2)}.lg h1{font-size:1.3rem;margin-bottom:18px}.lg .p{width:100%}
 body{background:var(--bg);color:var(--tx);font:400 15px/1.55 system-ui,'Instrument Sans',sans-serif}
 header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--bd)}
 header b{font-size:1.05rem;margin-right:auto}
@@ -34,10 +36,17 @@ details.gh{margin:0 0 20px;border:1px solid var(--bd);border-radius:10px;padding
 </style>
 </head>
 <body>
+<div id="lg" hidden><form id="lf" class="lg"><h1>Admin sign in</h1>
+<label class="f"><span>Email</span><input id="le" type="email" autocomplete="username" required></label>
+<label class="f"><span>Password</span><input id="lp" type="password" autocomplete="current-password" required></label>
+<label class="f"><span>Keep me signed in on this device</span><input id="lk" type="checkbox"></label>
+<button class="p" type="submit">Sign in</button><div id="lm" class="hint"></div></form></div>
+<div id="app" hidden>
 <header><b>Portfolio admin</b>
-<button id="bpv">Preview</button><button id="bdl">Download JSON</button><button id="bim">Import JSON</button><button id="bdis">Discard draft</button><button class="p" id="bpub">Publish to GitHub</button>
+<button id="bpv">Preview</button><button id="bdl">Download JSON</button><button id="bim">Import JSON</button><button id="bdis">Discard draft</button><button id="blo">Log out</button><button class="p" id="bpub">Publish to GitHub</button>
 <div id="st">Loading…</div></header>
 <div class="wrap"><nav id="tabs" aria-label="Sections"></nav><main id="pane"></main></div>
+</div>
 <script>
 const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":""}};
 const $=s=>document.querySelector(s);
@@ -47,7 +56,8 @@ let D,cur='Site',ch=false;
 const st=(m,c='')=>{const s=$('#st');s.textContent=m;s.className=c};
 const dirty=()=>{ch=true;try{localStorage.setItem('pf_draft',JSON.stringify(D))}catch(_){}st('Unsaved changes. Draft kept in this browser; publish to make it live.')};
 /* ---- GitHub ---- */
-let G=JSON.parse(localStorage.pf_gh||sessionStorage.pf_gh||'{"repo":"","br":"main","tok":""}');
+let G=JSON.parse(localStorage.pf_gh||sessionStorage.pf_gh||'{"repo":"ayushmannv1/portfolio","br":"main","tok":""}');
+let KEEP=!sessionStorage.pf_gh;const saveG=()=>{localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(KEEP?localStorage:sessionStorage).pf_gh=JSON.stringify(G)};
 const gh=async(m,p,b)=>{chk();const r=await fetch(`https://api.github.com/repos/${G.repo}/contents/${p}${m==='GET'?'?ref='+G.br:''}`,{method:m,cache:'no-store',headers:{Authorization:'Bearer '+G.tok,Accept:'application/vnd.github+json'},body:b&&JSON.stringify(b)});if(!r.ok&&r.status!==404){let t=r.status;try{t=(await r.json()).message}catch(_){}throw Error(t)}return r};
 const put=async(p,b64,msg,n=0)=>{try{const r=await gh('GET',p),sha=r.ok?(await r.json()).sha:undefined;return await (await gh('PUT',p,{message:msg,content:b64,branch:G.br,sha})).json()}catch(x){if(!n&&/does not match/.test(x.message))return put(p,b64,msg,1);throw x}};
 const chk=()=>{if(!/^[\w.-]+\/[\w.-]+$/.test(G.repo))throw Error('Repository must be username/name, for example ayushmannv1/portfolio')};
@@ -55,13 +65,13 @@ const em=x=>/fetch/i.test(x.message)?'Cannot reach GitHub from this browser (net
 const b64=t=>btoa(unescape(encodeURIComponent(t)));
 const rd=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=no;r.readAsDataURL(f)});
 function ghUI(){
-  const i=(k,l,t='text')=>{const x=h('input',{type:t,value:G[k]||'',placeholder:l});x.oninput=()=>G[k]=x.value.trim();return h('label',{className:'f'},h('span',{textContent:l}),x)};
-  const rem=h('input',{type:'checkbox',checked:!!localStorage.pf_gh});
+  const i=(k,l,t='text')=>{const x=h('input',{type:t,value:G[k]||'',placeholder:l});x.oninput=()=>{G[k]=x.value.trim();saveG()};return h('label',{className:'f'},h('span',{textContent:l}),x)};
+  const rem=h('input',{type:'checkbox',checked:KEEP,onchange:()=>{KEEP=rem.checked;saveG()}});
   const d=h('details',{className:'gh',open:!G.tok},h('summary',{textContent:G.tok?'GitHub connected':'Connect GitHub to publish'}),
     h('p',{className:'hint',innerHTML:'Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:#8aa6ff">fine-grained token</a> for only this repo with Contents: Read and write. Without it you can still edit and download content.json.'}),
     i('repo','Repository (owner/name)'),i('br','Branch'),i('tok','Access token','password'),
     h('label',{className:'f'},h('span',{textContent:'Remember on this device'}),rem),
-    h('button',{className:'p',textContent:'Save and test connection',onclick:async()=>{try{st('Testing…');chk();const r=await fetch('https://api.github.com/repos/'+G.repo,{headers:{Authorization:'Bearer '+G.tok}});if(!r.ok)throw Error('Cannot open repo (check name and token)');localStorage.removeItem('pf_gh');sessionStorage.removeItem('pf_gh');(rem.checked?localStorage:sessionStorage).pf_gh=JSON.stringify(G);st('Connected to '+G.repo,'ok')}catch(x){st(em(x),'bad')}}}));
+    h('button',{className:'p',textContent:'Save and test connection',onclick:async()=>{try{st('Testing…');chk();const r=await fetch('https://api.github.com/repos/'+G.repo,{headers:{Authorization:'Bearer '+G.tok}});if(!r.ok)throw Error('Cannot open repo (check name and token)');saveG();st('Connected to '+G.repo,'ok')}catch(x){st(em(x),'bad')}}}));
   return d}
 /* ---- uploads ---- */
 function pick(kind,cb){
@@ -121,7 +131,14 @@ async function init(){
   D=M(d,D0);let msg='Showing the published content.';
   try{const x=localStorage.getItem('pf_draft');if(x){D=M(JSON.parse(x),D0);msg='Draft restored from this browser. Use Discard draft to go back to the published version.'}}catch(_){}
   show();st(msg)}
-init();
+/* ---- sign-in gate (hides the admin screen; publishing still needs the GitHub token) ---- */
+const AH='97d2939b312c4b27bf7a0d4d7bb80ebe5c46727be8d46f343ccd34dc29ba2c95';
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const authed=()=>(sessionStorage.pf_auth||localStorage.pf_auth)==='1';
+function gate(){if(authed()){$('#app').hidden=false;$('#lg').hidden=true;init();return}$('#app').hidden=true;$('#lg').hidden=false;$('#le').focus()}
+$('#lf').onsubmit=async ev=>{ev.preventDefault();try{if(await sha('pf1:'+$('#le').value.trim().toLowerCase()+':'+$('#lp').value)!==AH){$('#lm').textContent='Wrong email or password.';return}(($('#lk').checked)?localStorage:sessionStorage).pf_auth='1';$('#lp').value='';gate()}catch(_){$('#lm').textContent='Sign-in needs a secure (https) page.'}};
+$('#blo').onclick=()=>{sessionStorage.removeItem('pf_auth');localStorage.removeItem('pf_auth');location.reload()};
+gate();
 </script>
 </body>
 </html>
