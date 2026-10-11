@@ -94,6 +94,17 @@ footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px soli
 .pf{font:500 .78rem var(--sans);border:1px solid var(--ac);border-radius:99px;padding:2px 12px;text-decoration:none;white-space:nowrap}
 .pf:hover{background:var(--ac);color:#fff}
 .adm{opacity:.55}.adm:hover{opacity:1}.adm .al{display:none}
+.pcol{display:flex;flex-direction:column;align-items:flex-start;gap:34px}
+.pcol .photo{width:100%}
+.badge{display:inline-flex;align-items:center;gap:10px;height:36px;max-width:100%;padding:0 16px 0 14px;border:1px solid var(--bd);border-radius:99px;background:color-mix(in srgb,var(--bg2) 72%,transparent);backdrop-filter:blur(8px);font:500 .74rem var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.badge[hidden]{display:none}
+.badge b{font-weight:600;color:var(--tx);overflow:hidden;text-overflow:ellipsis}
+.badge i{font-style:normal;color:var(--mut);font-size:.68rem}
+.badge i::before{content:"\00b7";margin-right:10px}
+.badge i:empty{display:none}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;background:#4d7cff;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #4d7cff80;opacity:1}70%{box-shadow:0 0 0 7px #4d7cff00;opacity:.7}100%{box-shadow:0 0 0 0 #4d7cff00;opacity:1}}
+
 /* art direction */
 body::before{content:"";position:fixed;inset:0 0 auto 0;height:2px;z-index:60;background:var(--ac);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
 #intro{height:clamp(520px,92vh,900px)}
@@ -141,6 +152,7 @@ header.open nav{display:flex}
 nav a{min-height:52px;font-size:1.05rem;border-bottom:1px solid var(--bd)}
 .about,.outro{grid-template-columns:1fr}
 .photo{max-width:230px;margin:0 auto}
+.pcol{align-items:center}
 h2{font-size:clamp(1.8rem,8vw,2.4rem)}
 section{padding-block:56px}
 #intro{height:auto}
@@ -169,7 +181,7 @@ nav a.adm{justify-content:space-between;opacity:1}
   <div class="vw"><video muted loop playsinline autoplay preload="metadata" aria-label="Intro video"></video><button class="snd" type="button"></button></div>
   <div class="ov"><div class="eyebrow" id="eb"></div><h1 id="ovh"></h1><p id="ovp"></p><div class="row"><a class="btn pri" href="#projects">See projects</a><a class="btn" href="#contact">Get in touch</a></div></div>
 </div>
-<section id="about"><div class="about"><div class="photo" id="photo"></div><div><h2 id="ah"></h2><p id="ab"></p><div class="facts" id="facts"></div></div></div></section>
+<section id="about"><div class="about"><div class="pcol"><div class="photo" id="photo"></div><div class="badge" id="bd" role="status" aria-label="Currently building"><span class="dot" aria-hidden="true"></span><b id="bn"></b><i id="bs"></i></div></div><div><h2 id="ah"></h2><p id="ab"></p><div class="facts" id="facts"></div></div></div></section>
 <section id="projects" style="padding-top:0"><h2>Selected projects</h2><div id="plist"></div></section>
 <section id="upcoming" style="padding-top:0"><h2>Upcoming</h2><div class="up" id="ulist"></div></section>
 <section id="skills" style="padding-top:0"><h2>Skills &amp; tools</h2><div class="sk" id="sk"></div></section>
@@ -178,13 +190,13 @@ nav a.adm{justify-content:space-between;opacity:1}
 <section class="outro" aria-label="Closing video"><div><h2 id="oh"></h2><p id="op"></p></div>
   <div class="vid" id="outro" data-k="outro"><div class="vw"><video muted loop playsinline preload="none" aria-label="Closing video"></video><button class="snd" type="button"></button></div></div></section>
 </main>
-<footer><span id="fl"></span><div><label>Theme <select id="theme"><option value="">Noir</option><option value="ivory">Ivory</option><option value="mono">Monochrome</option></select></label><button class="btn" type="button" id="top">Back to top</button></div></footer>
+<footer><span id="fl"></span><div><button class="btn" type="button" id="top">Back to top</button></div></footer>
 <div id="pv" hidden>Draft preview, not published yet. <a href="admin.html">Back to admin</a></div>
 
 <script>
-const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true},"eyebrow":""};
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true},"eyebrow":"","badge":{"name":"Project 650","status":"In Progress"}};
 const $=id=>document.getElementById(id),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
+const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos','badge'])o[k]={...b[k],...d[k]};return o};
 const U=u=>/^https?:\/\//i.test(u)?u:/^[\w-]+(\.[\w-]+)+(\/|$)/.test(u)?'https://'+u:'';
 const OK=t=>/complet|live|done|launch|ship/i.test(t||'')?' ok':'';
 async function load(){
@@ -211,11 +223,9 @@ function render(C){
   $('fl').textContent='© '+new Date().getFullYear()+' '+C.name;
   document.querySelector('#intro video').src=C.videos.intro;document.querySelector('#outro video').dataset.src=C.videos.outro;
   if(S.accent)document.documentElement.style.setProperty('--ac',S.accent);
-  const th=$('theme'),sv=(()=>{try{return localStorage.getItem('th')}catch(_){return null}})();
-  th.value=sv??(S.theme||'');if(th.selectedIndex<0)th.value='';
-  const ap=()=>document.documentElement.dataset.theme=th.value;ap();
-  th.onchange=()=>{ap();try{localStorage.setItem('th',th.value)}catch(_){}};
+  document.documentElement.dataset.theme=S.theme||'';
   $('top').onclick=()=>scrollTo({top:0});
+  const B=C.badge||{};$('bn').textContent=B.name||'';$('bs').textContent=B.status||'';$('bd').hidden=!(B.name||B.status);
   $('eb').textContent=C.eyebrow||'';$('intro').classList.toggle('grain',S.grain!==false);
   const fx=S.fx!==false&&!RM;document.documentElement.classList.toggle('fx',fx);
   if(fx){const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.1,rootMargin:'0px 0px -6% 0px'});
