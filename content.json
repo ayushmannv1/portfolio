@@ -4,12 +4,12 @@
   "overlay": "Just building things that shouldn't exist yet",
   "videos": {
     "intro": "WhatsApp Video 2026-10-10 at 12.47.26 PM.mp4",
-    "outro": "assets/1791731128453-WhatsApp_Video_2026-10-11_at_8.34.53_PM.mp4"
+    "outro": "assets/1791717601578-WhatsApp_Video_2026-10-11_at_4.49.06_PM.mp4"
   },
   "about": {
     "heading": "About",
     "bio": "Hey, I'm Ayushman — a young builder, creative thinker, and curious mind exploring the intersection of technology, business, and design. I turn ideas into projects, experiment with new tools, and learn by building things in the real world. This is where I document the process — the experiments, the challenges, and everything I'm working towards.",
-    "photo": "assets/img-1791729988805.jpg",
+    "photo": "",
     "facts": [
       {
         "k": "Current focus",
@@ -165,5 +165,5 @@
     "grain": true,
     "fx": true
   },
-  "eyebrow": "Just Out Here Doing My Own Thing"
+  "eyebrow": ""
 }
