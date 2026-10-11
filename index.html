@@ -94,6 +94,42 @@ footer select{font:inherit;background:var(--bg2);color:var(--tx);border:1px soli
 .pf{font:500 .78rem var(--sans);border:1px solid var(--ac);border-radius:99px;padding:2px 12px;text-decoration:none;white-space:nowrap}
 .pf:hover{background:var(--ac);color:#fff}
 .adm{opacity:.55}.adm:hover{opacity:1}.adm .al{display:none}
+/* art direction */
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:2px;z-index:60;background:var(--ac);transform:scaleX(var(--p,0));transform-origin:0 50%;pointer-events:none}
+#intro{height:clamp(520px,92vh,900px)}
+#intro::before{background:linear-gradient(180deg,#0009,#0000 30%,#000d 100%),radial-gradient(120% 90% at 50% 40%,#0000 55%,#0009)}
+.grain::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.13;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ov h1{font-size:clamp(3rem,8.5vw,8rem);max-width:12ch;line-height:.98}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem;font:500 .95rem var(--sans);opacity:.85;animation:rise 1.2s both}
+.eyebrow::before{content:"";width:40px;height:1px;background:currentColor}
+.eyebrow:empty{display:none}
+h2{display:flex;align-items:baseline;gap:24px}
+h2::after{content:"";flex:1;height:1px;background:var(--bd)}
+.contact h2,.outro h2{display:block}
+.contact h2::after,.outro h2::after{display:none}
+.contact h2{font-size:clamp(2.4rem,6vw,5rem);max-width:14ch}
+.outro{background:radial-gradient(80% 120% at 85% 50%,color-mix(in srgb,var(--ac) 14%,transparent),transparent 60%)}
+.photo{box-shadow:14px 16px 0 -1px var(--bg),14px 16px 0 0 var(--ac)}
+.proj summary{row-gap:6px}
+.proj h3{grid-column:1;grid-row:1}
+.proj .st{grid-column:2;grid-row:1}
+.proj summary p{grid-row:2}
+.proj.t summary{grid-template-columns:minmax(0,1fr) auto auto}
+.th{grid-column:3;grid-row:1/3;width:clamp(88px,12vw,168px);aspect-ratio:4/3;object-fit:cover;border-radius:10px;filter:saturate(.85);transition:transform .5s,filter .5s}
+.proj summary:hover .th{transform:scale(1.04) rotate(-1deg);filter:none}
+.st::before{content:"";display:inline-block;width:6px;height:6px;margin-right:8px;border-radius:50%;background:currentColor;vertical-align:middle}
+.st.ok{color:#5fd18a}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.tilt{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .3s ease-out,border-color .3s}
+html:not(.fx) .rv{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+@media(max-width:760px){
+.proj.t summary{grid-template-columns:minmax(0,1fr) auto}
+.th{grid-column:1/-1;grid-row:3;width:100%;aspect-ratio:16/9;margin-top:8px}
+h2{gap:16px}
+}
+
 .mb{display:none;background:none;border:0;color:var(--tx);width:48px;height:48px;align-items:center;justify-content:center;cursor:pointer;margin-right:-10px}
 .mb .i-x,.mb[aria-expanded=true] .i-m{display:none}
 .mb[aria-expanded=true] .i-x{display:block}
@@ -131,7 +167,7 @@ nav a.adm{justify-content:space-between;opacity:1}
 <main>
 <div class="vid" id="intro" data-k="intro" role="region" aria-label="Intro video">
   <div class="vw"><video muted loop playsinline autoplay preload="metadata" aria-label="Intro video"></video><button class="snd" type="button"></button></div>
-  <div class="ov"><h1 id="ovh"></h1><p id="ovp"></p><div class="row"><a class="btn pri" href="#projects">See projects</a><a class="btn" href="#contact">Get in touch</a></div></div>
+  <div class="ov"><div class="eyebrow" id="eb"></div><h1 id="ovh"></h1><p id="ovp"></p><div class="row"><a class="btn pri" href="#projects">See projects</a><a class="btn" href="#contact">Get in touch</a></div></div>
 </div>
 <section id="about"><div class="about"><div class="photo" id="photo"></div><div><h2 id="ah"></h2><p id="ab"></p><div class="facts" id="facts"></div></div></div></section>
 <section id="projects" style="padding-top:0"><h2>Selected projects</h2><div id="plist"></div></section>
@@ -146,10 +182,11 @@ nav a.adm{justify-content:space-between;opacity:1}
 <div id="pv" hidden>Draft preview, not published yet. <a href="admin.html">Back to admin</a></div>
 
 <script>
-const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":""}};
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true},"eyebrow":""};
 const $=id=>document.getElementById(id),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos'])o[k]={...b[k],...d[k]};return o};
 const U=u=>/^https?:\/\//i.test(u)?u:/^[\w-]+(\.[\w-]+)+(\/|$)/.test(u)?'https://'+u:'';
+const OK=t=>/complet|live|done|launch|ship/i.test(t||'')?' ok':'';
 async function load(){
   if(new URLSearchParams(location.search).get('preview')){try{const d=localStorage.getItem('pf_draft');if(d){$('pv').hidden=false;return M(JSON.parse(d),D0)}}catch(_){}}
   try{const r=await fetch('content.json?v='+Date.now(),{cache:'no-store'});if(r.ok)return M(await r.json(),D0)}catch(_){}
@@ -162,8 +199,8 @@ function render(C){
   $('ah').textContent=C.about.heading;$('ab').textContent=C.about.bio;
   $('photo').innerHTML=C.about.photo?`<img src="${e(C.about.photo)}" alt="Portrait of ${e(C.name)}" loading="lazy">`:'<span>Profile photo goes here</span>';
   $('facts').innerHTML=C.about.facts.map(f=>`<div><h3>${e(f.k)}</h3><p>${e(f.v)}</p></div>`).join('');
-  $('plist').innerHTML=C.projects.map(p=>`<details class="proj"><summary><h3>${e(p.title)}</h3><span class="st">${e(p.status)}</span><p>${e(p.short)}</p></summary><div class="pbody"><p>${e(p.detail)}</p>${p.image?`<img src="${e(p.image)}" alt="${e(p.title)} cover" loading="lazy">`:''}${(p.tech||[]).length?`<div class="tags">${p.tech.map(t=>`<span>${e(t)}</span>`).join('')}</div>`:''}<div class="links">${p.demo?`<a class="btn pri" href="${e(U(p.demo))}" target="_blank" rel="noopener">Live demo</a>`:''}${p.github?`<a class="btn" href="${e(U(p.github))}" target="_blank" rel="noopener">GitHub</a>`:''}</div></div></details>`).join('');
-  $('ulist').innerHTML=C.upcoming.map(u=>`<article><h3>${e(u.title)}</h3><p>${e(u.short)}</p><span class="st">${e(u.status)}</span>${u.timeline?` <small>${e(u.timeline)}</small>`:''}</article>`).join('');
+  $('plist').innerHTML=C.projects.map(p=>`<details class="proj${p.image?' t':''}"><summary><h3>${e(p.title)}</h3><span class="st${OK(p.status)}">${e(p.status)}</span><p>${e(p.short)}</p>${p.image?`<img class="th" src="${e(p.image)}" alt="" loading="lazy" width="168" height="126">`:''}</summary><div class="pbody"><p>${e(p.detail)}</p>${p.image?`<img src="${e(p.image)}" alt="${e(p.title)} cover" loading="lazy">`:''}${(p.tech||[]).length?`<div class="tags">${p.tech.map(t=>`<span>${e(t)}</span>`).join('')}</div>`:''}<div class="links">${p.demo?`<a class="btn pri" href="${e(U(p.demo))}" target="_blank" rel="noopener">Live demo</a>`:''}${p.github?`<a class="btn" href="${e(U(p.github))}" target="_blank" rel="noopener">GitHub</a>`:''}</div></div></details>`).join('');
+  $('ulist').innerHTML=C.upcoming.map(u=>`<article><h3>${e(u.title)}</h3><p>${e(u.short)}</p><span class="st${OK(u.status)}">${e(u.status)}</span>${u.timeline?` <small>${e(u.timeline)}</small>`:''}</article>`).join('');
   $('sk').innerHTML=C.skills.map(g=>`<div><h3>${e(g.name)}</h3>${(g.items||[]).length?`<ul>${g.items.map(s=>`<li><div class="r"><span>${e(s.label)}</span>${U(s.url||'')?`<a class="pf" href="${e(U(s.url))}" target="_blank" rel="noopener" aria-label="Proof for ${e(s.label)} (opens in a new tab)">Proof</a>`:''}</div>${s.note?`<small>${e(s.note)}</small>`:''}</li>`).join('')}</ul>`:'<p class="empty">Nothing added yet.</p>'}</div>`).join('');
   const K=C.contact;$('ch').textContent=K.heading;$('cp').textContent=K.text;
   $('links').innerHTML=(K.email?`<a class="btn pri" href="mailto:${e(K.email)}">Email me</a><button class="btn" type="button" id="cp2">Copy email</button>`:'')+K.links.filter(l=>l.url).map(l=>`<a class="btn" href="${e(U(l.url))}" target="_blank" rel="noopener" aria-label="${e(l.label)} (opens in a new tab)">${e(l.label)}</a>`).join('');
@@ -179,6 +216,14 @@ function render(C){
   const ap=()=>document.documentElement.dataset.theme=th.value;ap();
   th.onchange=()=>{ap();try{localStorage.setItem('th',th.value)}catch(_){}};
   $('top').onclick=()=>scrollTo({top:0});
+  $('eb').textContent=C.eyebrow||'';$('intro').classList.toggle('grain',S.grain!==false);
+  const fx=S.fx!==false&&!RM;document.documentElement.classList.toggle('fx',fx);
+  if(fx){const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('section>h2,.about,.proj,.up article,.sk,.contact>p,.links2,.cf,.outro>*').forEach(el=>{el.classList.add('rv');io.observe(el)});
+    if(matchMedia('(pointer:fine)').matches)document.querySelectorAll('.photo,.up article').forEach(el=>{el.classList.add('tilt');
+      el.addEventListener('pointermove',ev=>{const r=el.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width-.5,y=(ev.clientY-r.top)/r.height-.5;el.style.transform=`perspective(900px) rotateY(${x*7}deg) rotateX(${-y*7}deg)`});
+      el.addEventListener('pointerleave',()=>{el.style.transform=''})})}
+  addEventListener('scroll',()=>document.documentElement.style.setProperty('--p',scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)),{passive:true});
   const hd=document.querySelector('header'),mb=$('mb'),tg=o=>{hd.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
   mb.onclick=()=>tg(!hd.classList.contains('open'));
   document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>tg(false)));
