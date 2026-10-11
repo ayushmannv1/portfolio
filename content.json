@@ -104,7 +104,8 @@
       "items": [
         {
           "label": "Video Edting & Motion Graphic ",
-          "note": ""
+          "note": "",
+          "url": "https://drive.google.com/drive/folders/1xm050eyQ434ArzRCAdIrBkhCn9ueuGyj"
         }
       ]
     },
@@ -112,14 +113,26 @@
       "name": "Data Analyst",
       "items": [
         {
-          "label": "",
+          "label": "AI Tranning ",
+          "note": "",
+          "url": "https://drive.google.com/file/d/1kb0X6pKTF48dZvjvIDHzymJgNa6ZLP2g/view?usp=drivesdk"
+        },
+        {
+          "label": "Internship ",
+          "url": "https://drive.google.com/file/d/1UBe7CWMxpEDsgv5Kg7BzGln7s1W4mbsw/view?usp=drivesdk",
           "note": ""
         }
       ]
     },
     {
-      "name": "New category",
-      "items": []
+      "name": "SEBI ",
+      "items": [
+        {
+          "label": "Investor Awarness Test ",
+          "url": "https://drive.google.com/file/d/1kBt-LsK9B-fTBoCzZl_zzuNT9B5j8st5/view?usp=drivesdk",
+          "note": ""
+        }
+      ]
     }
   ],
   "contact": {
