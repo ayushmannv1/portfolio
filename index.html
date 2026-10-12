@@ -9,6 +9,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233D6BFF'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{var R=document.documentElement;if(!sessionStorage.pf_intro&&!matchMedia('(prefers-reduced-motion:reduce)').matches){R.classList.add('cin-on','cin-hold');setTimeout(function(){R.classList.remove('cin-on','cin-hold')},14000)}}catch(e){}</script>
 <style>
 :root{--bg:#0A0B0F;--bg2:#12141B;--tx:#F4F2ED;--mut:#9A9EA9;--ac:#3D6BFF;--bd:#23262F;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;--pad:clamp(20px,5vw,80px)}
 [data-theme=ivory]{--bg:#F8F6F0;--bg2:#fff;--tx:#171717;--mut:#666;--ac:#2F55E4;--bd:#E3E0D8}
@@ -172,9 +173,48 @@ nav a.adm{justify-content:space-between;opacity:1}
 .adm .al{display:inline}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* cinematic intro layer */
+[hidden]{display:none!important}
+#cin{display:none;position:fixed;inset:0;z-index:100;cursor:pointer;overflow:hidden}
+html.cin-on #cin{display:block}
+html.cin-hold,html.cin-hold body{overflow:hidden}
+html.cin-hold .ov *,html.cin-hold .eyebrow{animation-play-state:paused}
+#cin i{position:absolute;display:block}
+.cp{left:0;right:0;height:50.2%;background:#000;will-change:transform}
+.cp.t{top:0}.cp.b{bottom:0}
+.cl{position:absolute;inset:0;pointer-events:none}
+.gl{left:-10%;right:-10%;top:20%;height:60%;background:radial-gradient(ellipse 55% 50% at 50% 50%,#b9cdff59,#6f8fe21f 45%,#0000 72%);opacity:0;transform:scaleY(.02)}
+.gd{inset:-10%;background:radial-gradient(ellipse 40% 35% at 30% 55%,#5b7cd433,#0000 70%),radial-gradient(ellipse 35% 30% at 72% 45%,#8fb0ff26,#0000 70%);opacity:0}
+.bm{left:12%;right:12%;top:calc(50% - 1px);height:2px;background:linear-gradient(90deg,#0000,#e8efff 30%,#fff 50%,#e8efff 70%,#0000);box-shadow:0 0 22px 2px #8fb0ff80;opacity:0;transform:scaleX(.1)}
+.cw{position:absolute;inset:0;display:grid;place-items:center}
+.mk{overflow:hidden;padding:.14em .12em;filter:drop-shadow(0 0 18px #9ab6ff40)}
+.ct{font:300 clamp(2.1rem,10.5vw,9rem)/1 var(--serif);letter-spacing:.08em;margin-right:-.08em;color:transparent;background:linear-gradient(100deg,#8e94a1 0%,#8e94a1 42%,#fff 50%,#8e94a1 58%,#8e94a1 100%) 100% 0/300% 100%;-webkit-background-clip:text;background-clip:text;transform:translateY(112%)}
+.gr{inset:-50%;opacity:.08;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .9s steps(4) infinite}
+.vg{inset:0;background:radial-gradient(120% 100% at 50% 50%,#0000 38%,#000d 100%)}
+#cin.go .bm{animation:bm 9s linear forwards}
+#cin.go .gl{animation:gl 10s ease forwards}
+#cin.go .gd{animation:gd 10s ease-in-out forwards}
+#cin.go .ct{animation:mk 1.7s cubic-bezier(.16,.84,.24,1) 4s forwards,sw 2.4s ease-in-out 5.3s forwards}
+#cin.go .cw{animation:out .6s cubic-bezier(.7,0,.8,.3) 7s forwards}
+#cin.go .cl{animation:cl 1s ease 8.7s forwards}
+#cin.go .cp.t{animation:op 1.6s cubic-bezier(.76,0,.24,1) 8.4s forwards}
+#cin.go .cp.b{animation:opb 1.6s cubic-bezier(.76,0,.24,1) 8.4s forwards}
+#cin.skip{opacity:0;transition:opacity .6s}
+@keyframes bm{0%{opacity:0;transform:scaleX(.1)}22%{opacity:1;transform:scaleX(1)}44%{opacity:.25}76%{opacity:.25}80%{opacity:1;transform:scaleX(1)}93%{opacity:1;transform:scaleX(1.5)}100%{opacity:0;transform:scaleX(1.5)}}
+@keyframes gl{0%,20%{opacity:0;transform:scaleY(.02)}40%{opacity:1;transform:scaleY(1)}72%{opacity:.55;transform:scaleY(1)}84%{opacity:1;transform:scaleY(1.15)}100%{opacity:0;transform:scaleY(1.3)}}
+@keyframes gd{0%{opacity:0;transform:translate3d(-3%,0,0) scale(1.05)}35%{opacity:0}50%,85%{opacity:1}100%{opacity:0;transform:translate3d(3%,1%,0) scale(1.12)}}
+@keyframes mk{to{transform:none}}
+@keyframes sw{from{background-position:100% 0}to{background-position:0 0}}
+@keyframes out{to{transform:scaleY(.01) scaleX(1.12);opacity:0;filter:blur(2px)}}
+@keyframes cl{to{opacity:0}}
+@keyframes op{0%{box-shadow:0 0 0 0 #0000;transform:none}12%{box-shadow:0 0 90px 16px #aac8ff4d}100%{box-shadow:0 0 90px 16px #aac8ff4d;transform:translateY(-100%)}}
+@keyframes opb{0%{box-shadow:0 0 0 0 #0000;transform:none}12%{box-shadow:0 0 90px 16px #aac8ff4d}100%{box-shadow:0 0 90px 16px #aac8ff4d;transform:translateY(100%)}}
+@keyframes gr{to{transform:translate3d(-6%,4%,0)}}
 </style>
 </head>
 <body>
+<div id="cin" aria-hidden="true"><i class="cp t"></i><i class="cp b"></i><div class="cl"><i class="gl"></i><i class="gd"></i><i class="bm"></i><div class="cw"><div class="mk"><div class="ct">PORTFOLIO.</div></div></div><i class="gr"></i><i class="vg"></i></div></div>
 <header><b id="hn"></b><button class="mb" id="mb" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="i-m" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-x" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button><nav id="nav" aria-label="Primary"><a href="#about">About</a><a href="#projects">Projects</a><a href="#upcoming">Upcoming</a><a href="#skills">Skills</a><a href="#contact">Contact</a><a class="adm" href="admin.html" aria-label="Admin sign in" title="Admin"><span class="al">Admin</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></nav></header>
 <main>
 <div class="vid" id="intro" data-k="intro" role="region" aria-label="Intro video">
@@ -190,11 +230,11 @@ nav a.adm{justify-content:space-between;opacity:1}
 <section class="outro" aria-label="Closing video"><div><h2 id="oh"></h2><p id="op"></p></div>
   <div class="vid" id="outro" data-k="outro"><div class="vw"><video muted loop playsinline preload="none" aria-label="Closing video"></video><button class="snd" type="button"></button></div></div></section>
 </main>
-<footer><span id="fl"></span><div><button class="btn" type="button" id="top">Back to top</button></div></footer>
+<footer><span id="fl"></span><div><button class="btn" type="button" id="rp">Replay intro</button><button class="btn" type="button" id="top">Back to top</button></div></footer>
 <div id="pv" hidden>Draft preview, not published yet. <a href="admin.html">Back to admin</a></div>
 
 <script>
-const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true},"eyebrow":"","badge":{"name":"Project 650","status":"In Progress"}};
+const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true,"intro":true},"eyebrow":"","badge":{"name":"Project 650","status":"In Progress"}};
 const $=id=>document.getElementById(id),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos','badge'])o[k]={...b[k],...d[k]};return o};
 const U=u=>/^https?:\/\//i.test(u)?u:/^[\w-]+(\.[\w-]+)+(\/|$)/.test(u)?'https://'+u:'';
@@ -272,7 +312,22 @@ function mk(box){
   if(v.dataset.src)new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){load();o.disconnect()}},{rootMargin:'600px'}).observe(box);
   label();V.push(box);
 }
-load().then(C=>{render(C);document.querySelectorAll('.vid').forEach(mk);if(RM)document.querySelectorAll('.vid video').forEach(v=>v.pause())});
+
+/* ---------- Cinematic intro (separate layer, plays once per session) ---------- */
+const root=document.documentElement,cin=$('cin');let cto;
+const fin=()=>{clearTimeout(cto);root.classList.remove('cin-on','cin-hold');cin.classList.remove('go','skip')};
+const skip=()=>{cin.classList.add('skip');root.classList.remove('cin-hold');setTimeout(fin,650)};
+const play=()=>{if(RM)return;try{sessionStorage.pf_intro=1}catch(_){}scrollTo(0,0);root.classList.add('cin-on','cin-hold');cin.classList.remove('skip','go');void cin.offsetWidth;cin.classList.add('go');clearTimeout(cto);cto=setTimeout(fin,11500)};
+const pt=cin.querySelector('.cp.t');pt.addEventListener('animationstart',()=>root.classList.remove('cin-hold'));pt.addEventListener('animationend',fin);
+cin.onclick=skip;
+addEventListener('keydown',x=>{if(root.classList.contains('cin-on')&&[' ','Enter','Escape'].includes(x.key)){x.preventDefault();skip()}});
+function introInit(){
+  $('rp').hidden=RM||S.intro===false;$('rp').onclick=play;
+  if(!root.classList.contains('cin-on'))return;
+  if(S.intro===false||RM)return fin();
+  try{sessionStorage.pf_intro=1}catch(_){}
+  cin.classList.add('go');clearTimeout(cto);cto=setTimeout(fin,11500)}
+load().then(C=>{render(C);document.querySelectorAll('.vid').forEach(mk);introInit();if(RM)document.querySelectorAll('.vid video').forEach(v=>v.pause())});
 document.addEventListener('visibilitychange',()=>document.hidden&&V.forEach(b=>b.mute()));
 </script>
 </body>
