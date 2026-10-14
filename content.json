@@ -159,7 +159,7 @@
     "text": "Not everything is built yet. Not every idea has a name. But the journey is already in motion.\n\nSee you in the next build."
   },
   "settings": {
-    "soundIcon": false,
+    "soundIcon": true,
     "soundControl": true,
     "startMuted": true,
     "allowReplay": true,
