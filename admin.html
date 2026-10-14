@@ -33,6 +33,13 @@ input[type=checkbox]{width:auto;justify-self:start}input[type=color]{height:40px
 details.gh{margin:0 0 20px;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}details.gh summary{cursor:pointer;font-weight:600}
 .hint{color:var(--mut);font-size:.85rem;margin:6px 0 12px}
 @media(max-width:720px){.wrap{grid-template-columns:1fr}#tabs{flex-direction:row;flex-wrap:wrap;position:static}}
+.ovl{position:fixed;inset:0;z-index:50;background:#000b;display:grid;place-items:center;padding:16px;overflow:auto}
+.mdl{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:18px;width:min(380px,100%)}
+.cfr{width:min(300px,100%);aspect-ratio:4/5;margin:0 auto 12px;border:1px solid var(--bd);border-radius:999px 999px 14px 14px;overflow:hidden;touch-action:none;cursor:grab;background:var(--bg)}
+.cfr img{display:block;width:100%;height:100%;object-fit:cover;user-select:none;pointer-events:none;transform-origin:50% 50%}
+.ipv{display:flex;align-items:center;min-height:120px;padding:16px 24px;margin-bottom:16px;border:1px solid var(--bd);border-radius:10px;background:#000;overflow:hidden}
+.ipt{color:#f4f2ec;line-height:1;white-space:nowrap}
+output{min-width:48px;color:var(--mut);align-self:center}
 </style>
 </head>
 <body>
@@ -51,7 +58,7 @@ details.gh{margin:0 0 20px;border:1px solid var(--bd);border-radius:10px;padding
 const D0={"name":"Ayushman","headline":"I build digital products and document how they come together.","overlay":"Products, experiments, notes.","videos":{"intro":"assets/intro.mp4","outro":"assets/outro.mp4"},"about":{"heading":"About","bio":"Placeholder: write a short introduction here. Add only what is true and confirmed.","photo":"","facts":[{"k":"Current focus","v":"Placeholder: what you are working on now"},{"k":"Interests","v":"Placeholder: your interests"},{"k":"Location","v":"Placeholder: optional"}]},"projects":[{"title":"CartGrid","status":"Planned","short":"A local commerce and ordering platform.","detail":"Placeholder: describe the problem, your role and what exists today.","tech":[],"demo":"","github":"","image":""},{"title":"Theatre Ordering","status":"Planned","short":"A cinema food-ordering concept for ordering during the interval.","detail":"Placeholder: describe the concept and its current stage.","tech":[],"demo":"","github":"","image":""},{"title":"Liberty","status":"Planned","short":"A packaged drinking water brand.","detail":"Placeholder: describe the brand and its current stage.","tech":[],"demo":"","github":"","image":""}],"upcoming":[{"title":"Next idea","short":"Placeholder: one line about a future project.","status":"Idea","timeline":""}],"skills":[{"name":"Development","items":[]},{"name":"Design","items":[]},{"name":"Creative tools","items":[]},{"name":"Business & product","items":[]}],"contact":{"heading":"Have an idea? Let's build something meaningful.","text":"Send a note and say what you have in mind.","email":"ayushmanyou2@gmail.com","links":[{"label":"LinkedIn","url":""},{"label":"Instagram","url":""},{"label":"Reddit","url":""},{"label":"GitHub","url":""}]},"outro":{"heading":"Thanks for stopping by.","text":"Placeholder: closing line."},"settings":{"allowReplay":false,"theme":"","accent":"","grain":true,"fx":true,"intro":true},"eyebrow":"","badge":{"name":"Project 650","status":"In Progress"}};
 const $=s=>document.querySelector(s);
 const h=(t,a={},...k)=>{const x=document.createElement(t);for(const[n,v]of Object.entries(a))x[n]=v;x.append(...k.flat().filter(c=>c!=null));return x};
-const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos','badge'])o[k]={...b[k],...d[k]};return o};
+const M=(d,b)=>{d=d||{};const o={...b,...d};for(const k of['about','contact','outro','settings','videos','badge'])o[k]={...b[k],...d[k]};o.settings={soundIcon:true,soundControl:true,startMuted:true,...o.settings};return o};
 let D,cur='Site',ch=false,PUB='';
 const hs=t=>{let h=0;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;return h+':'+t.length};
 const saveDraft=()=>{try{localStorage.setItem('pf_draft',JSON.stringify(D));localStorage.pf_base=PUB}catch(_){}};
@@ -107,14 +114,52 @@ function list(a,lab,defs,blank){
   w.append(h('button',{textContent:'Add '+lab.toLowerCase().replace(/s$/,''),onclick:()=>{a.push(structuredClone(blank));dirty();show()}}));
   return w}
 const TH=[['','Noir'],['ivory','Ivory'],['mono','Monochrome']];
+const PLAT=[['','Auto-detect from the link'],['instagram','Instagram'],['linkedin','LinkedIn'],['youtube','YouTube'],['github','GitHub'],['facebook','Facebook'],['x','X (Twitter)'],['website','Website'],['text','Text only (no logo)']];
+/* ---- profile photo crop editor: stores {x,y,z} only; the original image file is never changed ---- */
+function cropper(){
+  const src=D.about.photo;if(!src)return st('Add a photo first (use Upload above).','bad');
+  const cr={x:0,y:0,z:1,...(D.about.photoCrop||{})};
+  const img=h('img',{src,alt:'',draggable:false}),fr=h('div',{className:'cfr'},img);
+  const upd=()=>{const fw=fr.clientWidth||1,fh=fr.clientHeight||1,nw=img.naturalWidth||fw,nh=img.naturalHeight||fh,s=Math.max(fw/nw,fh/nh),mx=Math.max(0,(nw*s*cr.z-fw)/2/fw),my=Math.max(0,(nh*s*cr.z-fh)/2/fh);cr.x=Math.min(mx,Math.max(-mx,cr.x));cr.y=Math.min(my,Math.max(-my,cr.y));img.style.transform=`translate(${cr.x*100}%,${cr.y*100}%) scale(${cr.z})`};
+  let d=null;
+  fr.addEventListener('pointerdown',e=>{d={x:e.clientX,y:e.clientY,cx:cr.x,cy:cr.y};try{fr.setPointerCapture(e.pointerId)}catch(_){}});
+  fr.addEventListener('pointermove',e=>{if(!d)return;cr.x=d.cx+(e.clientX-d.x)/(fr.clientWidth||1);cr.y=d.cy+(e.clientY-d.y)/(fr.clientHeight||1);upd()});
+  ['pointerup','pointercancel'].forEach(t=>fr.addEventListener(t,()=>{d=null}));
+  const zm=h('input',{type:'range',min:1,max:3,step:.01,value:cr.z});zm.addEventListener('input',()=>{cr.z=+zm.value;upd()});
+  const ov=h('div',{className:'ovl'},h('div',{className:'mdl'},h('h4',{textContent:'Adjust profile photo'}),fr,
+    h('p',{className:'hint',textContent:'Drag the photo to move it and use the slider to zoom. The preview matches the site frame. The original file is not changed.'}),
+    h('label',{className:'f'},h('span',{textContent:'Zoom'}),zm),
+    h('div',{className:'row'},
+      h('button',{className:'p',textContent:'Save changes',onclick:()=>{D.about.photoCrop={x:+cr.x.toFixed(4),y:+cr.y.toFixed(4),z:+(+cr.z).toFixed(3)};dirty();ov.remove();st('Crop saved to the draft. Press Publish to make it live.','ok')}}),
+      h('button',{textContent:'Reset crop',onclick:()=>{cr.x=0;cr.y=0;cr.z=1;zm.value=1;upd()}}),
+      h('button',{textContent:'Cancel',onclick:()=>ov.remove()}))));
+  document.body.append(ov);img.addEventListener('load',upd);upd()}
+/* ---- intro title typography (affects only the intro word) ---- */
+const FONTS=[['','Site default (current look)'],['Playfair Display','Playfair Display (elegant serif)'],['Cormorant Garamond','Cormorant Garamond (elegant serif)'],['Instrument Serif','Instrument Serif (editorial serif)'],['Fraunces','Fraunces (soft serif)'],['Inter','Inter (modern sans)'],['Space Grotesk','Space Grotesk (modern sans)'],['Manrope','Manrope (modern sans)'],['Bebas Neue','Bebas Neue (cinematic display)'],['Cinzel','Cinzel (cinematic display)'],['Oswald','Oswald (cinematic condensed)']];
+const FW={'Playfair Display':'400;500;700','Cormorant Garamond':'300;400;500;700','Instrument Serif':'','Fraunces':'300;400;500;700','Inter':'300;400;500;700','Space Grotesk':'300;400;500;700','Manrope':'300;400;500;700','Bebas Neue':'','Cinzel':'400;500;700','Oswald':'300;400;500;700'};
+function introPanel(){
+  const T={family:'',size:100,weight:300,spacing:.08,align:'center',...(D.settings.introFont||{})};
+  const tx=h('div',{className:'ipt',textContent:'PORTFOLIO.'}),pv=h('div',{className:'ipv'},tx);
+  const paint=()=>{const f=T.family||'Fraunces';if(!document.getElementById('f-'+f)){document.head.append(h('link',{id:'f-'+f,rel:'stylesheet',href:'https://fonts.googleapis.com/css2?family='+f.replace(/ /g,'+')+(FW[f]?':wght@'+FW[f]:'')+'&display=swap'}))}
+    const t=tx.style;t.fontFamily=`'${f}',Georgia,serif`;t.fontWeight=T.weight;t.fontSize=`calc(clamp(1.6rem,7vw,4.2rem)*${T.size/100})`;t.letterSpacing=T.spacing+'em';pv.style.justifyContent={start:'flex-start',center:'center',end:'flex-end'}[T.align]||'center'};
+  const sel=(k,opts)=>{const i=h('select',{},opts.map(([a,b])=>h('option',{value:a,textContent:b})));i.value=T[k];i.addEventListener('change',()=>{T[k]=i.value;paint()});return i};
+  const rng=(k,min,max,step,u)=>{const o=h('output',{textContent:T[k]+u}),i=h('input',{type:'range',min,max,step,value:T[k]});i.addEventListener('input',()=>{T[k]=+i.value;o.textContent=i.value+u;paint()});return h('div',{className:'row'},i,o)};
+  const L=(l,c)=>h('label',{className:'f'},h('span',{textContent:l}),c);
+  paint();
+  return h('div',{},h('p',{className:'hint',textContent:'Changes only the font of the intro word. The wording, timing and effects stay the same.'}),pv,
+    L('Font',sel('family',FONTS)),L('Size (% of current)',rng('size',50,160,5,'%')),L('Weight',sel('weight',[[300,'Light'],[400,'Regular'],[500,'Medium'],[700,'Bold']])),L('Letter spacing (em)',rng('spacing',-.02,.4,.01,'')),L('Alignment',sel('align',[['start','Left'],['center','Centre'],['end','Right']])),
+    h('div',{className:'row'},
+      h('button',{className:'p',textContent:'Save changes',onclick:()=>{D.settings.introFont={family:T.family,size:+T.size,weight:+T.weight,spacing:+T.spacing,align:T.align};dirty();st('Intro typography saved to the draft. Press Publish to make it live.','ok')}}),
+      h('button',{textContent:'Reset to default',onclick:()=>{delete D.settings.introFont;dirty();show();st('Intro typography reset to the default look.','ok')}})))}
 const TABS={
-  Site:()=>[fld(D,'name','Site name'),fld(D,'headline','Hero headline','area'),fld(D,'overlay','Hero subtitle'),fld(D,'eyebrow','Small line above the headline (optional)'),fld(D.videos,'intro','Intro video (file path)','vid'),fld(D.videos,'outro','Closing video (file path)','vid'),fld(D.settings,'theme','Default theme','sel',TH),fld(D.settings,'accent','Accent colour (hex, blank = theme default)'),fld(D.settings,'allowReplay','Let visitors replay the sound','chk'),fld(D.settings,'grain','Film grain over the intro video','chk'),fld(D.settings,'fx','Subtle motion (scroll reveal, card tilt)','chk'),fld(D.settings,'intro','Play the cinematic intro on a visitor\'s first visit','chk')],
-  About:()=>[fld(D.about,'heading','Heading'),fld(D.badge,'name','Badge beside photo: project name'),fld(D.badge,'status','Badge beside photo: status'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
+  Site:()=>[fld(D,'name','Site name'),fld(D,'headline','Hero headline','area'),fld(D,'overlay','Hero subtitle'),fld(D,'eyebrow','Small line above the headline (optional)'),fld(D.videos,'intro','Intro video (file path)','vid'),fld(D.videos,'outro','Closing video (file path)','vid'),fld(D.settings,'theme','Default theme','sel',TH),fld(D.settings,'accent','Accent colour (hex, blank = theme default)'),fld(D.settings,'allowReplay','Let visitors replay the sound','chk'),fld(D.settings,'soundIcon','Show the sound icon on the videos (hiding it does NOT change the audio)','chk'),fld(D.settings,'soundControl','Let visitors use the sound control','chk'),fld(D.settings,'startMuted','Videos start muted (untick to try starting with sound; browsers may still block it)','chk'),fld(D.settings,'grain','Film grain over the intro video','chk'),fld(D.settings,'fx','Subtle motion (scroll reveal, card tilt)','chk'),fld(D.settings,'intro','Play the cinematic intro on a visitor\'s first visit','chk')],
+  About:()=>[fld(D.about,'heading','Heading'),fld(D.badge,'name','Badge beside photo: project name'),fld(D.badge,'status','Badge beside photo: status'),fld(D.about,'bio','Bio','area'),fld(D.about,'photo','Photo','img'),h('div',{className:'f'},h('button',{type:'button',textContent:'Adjust photo crop',onclick:cropper})),list(D.about.facts,'Facts',[['k','Label'],['v','Text']],{k:'',v:''})],
   Projects:()=>[list(D.projects,'Projects',[['title','Title'],['status','Status'],['short','One-line summary'],['detail','Details','area'],['tech','Tech (comma separated)','tags'],['demo','Live demo URL'],['github','GitHub URL'],['image','Cover image','img']],{title:'New project',status:'Planned',short:'',detail:'',tech:[],demo:'',github:'',image:''})],
   Upcoming:()=>[list(D.upcoming,'Upcoming',[['title','Title'],['short','One-line summary'],['status','Status'],['timeline','Timeline']],{title:'New idea',short:'',status:'Idea',timeline:''})],
   Skills:()=>[list(D.skills,'Categories',[['name','Category name'],['items','Items','list',[['label','Skill'],['url','Proof link (optional)'],['note','Note']],{label:'',url:'',note:''}]],{name:'New category',items:[]})],
-  Contact:()=>[fld(D.contact,'heading','Heading'),fld(D.contact,'text','Text','area'),fld(D.contact,'email','Email'),list(D.contact.links,'Links',[['label','Label'],['url','URL']],{label:'',url:''})],
-  Closing:()=>[fld(D.outro,'heading','Heading'),fld(D.outro,'text','Text','area')]
+  Contact:()=>[fld(D.contact,'heading','Heading'),fld(D.contact,'text','Text','area'),fld(D.contact,'email','Email'),list(D.contact.links,'Links',[['platform','Platform (logo)','sel',PLAT],['label','Name (for screen readers)'],['url','Profile URL'],['hide','Hide this link','chk']],{platform:'',label:'',url:'',hide:false})],
+  Closing:()=>[fld(D.outro,'heading','Heading'),fld(D.outro,'text','Text','area')],
+  Intro:()=>[introPanel()]
 };
 function show(){
   $('#tabs').replaceChildren(...Object.keys(TABS).map(t=>h('button',{textContent:t,className:t===cur?'on':'',onclick:()=>{cur=t;show()}})));
